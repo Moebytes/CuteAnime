@@ -1,7 +1,7 @@
 {
-    "short_name": "cuteanime.moe",
-    "name": "Cuteanime.moe",
-    "description": "Cuteanime is a website where you can watch anime with Japanese subtitles, it is a fun way to study japanese.",
+    "short_name": "cuteanime",
+    "name": "CuteAnime",
+    "description": "Learn Japanese by watching anime!",
     "icons": [
       {
         "src": "assets/icons/favicon.png",

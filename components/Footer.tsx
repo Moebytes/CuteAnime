@@ -1,20 +1,16 @@
-import React, {useContext, useEffect, useState} from "react"
-import {useHistory} from "react-router-dom"
-import {HashLink as Link} from "react-router-hash-link"
-import {EnableDragContext, DonationFlagContext, MobileContext} from "../Context"
+import React from "react"
+import {useLayoutSelector} from "../store"
+import {useNavigate} from "react-router-dom"
 import functions from "../structures/Functions"
 import tos from "../assets/icons/tos.png"
 import contact from "../assets/icons/contact.png"
 import code from "../assets/icons/code.png"
-import donate from "../assets/icons/donate.png"
 import pack from "../package.json"
 import "./styles/footer.less"
 
-const Footer: React.FunctionComponent = (props) => {
-    const {enableDrag, setEnableDrag} = useContext(EnableDragContext)
-    const {donationFlag, setDonationFlag} = useContext(DonationFlagContext)
-    const {mobile, setMobile} = useContext(MobileContext)
-    const history = useHistory()
+const Footer: React.FunctionComponent = () => {
+    const {mobile} = useLayoutSelector()
+    const navigate = useNavigate()
 
     const getFilter = () => {
         if (typeof window === "undefined") return
@@ -27,10 +23,10 @@ const Footer: React.FunctionComponent = (props) => {
         <div className="footer">
             <div className="footer-row">
                 <div className="footer-links-container">
-                    <div className="footer-link-box" onClick={() => history.push(`/`)}>
+                    <div className="footer-link-box" onClick={() => navigate(`/`)}>
                         <span className="footer-link-text-big">CuteAnime</span>
                     </div>
-                    <div className="footer-link-box" onClick={() => history.push(`/tos`)}>
+                    <div className="footer-link-box" onClick={() => navigate(`/tos`)}>
                         <img className="footer-link-img" src={tos} style={{filter: getFilter()}}/>
                         {!mobile ? <span className="footer-link-text">TOS/Privacy Policy</span> : null}
                     </div>
@@ -41,10 +37,6 @@ const Footer: React.FunctionComponent = (props) => {
                     <div className="footer-link-box" onClick={() => window.open(pack.repository.url, "_blank")}>
                         <img className="footer-link-img" src={code}  style={{filter: getFilter()}}/>
                         {!mobile ? <span className="footer-link-text">Website Code</span> : null}
-                    </div>
-                    <div className="footer-link-box" onClick={() => setDonationFlag(true)}>
-                        <img className="footer-link-img" src={donate} style={{filter: getFilter()}}/>
-                        {!mobile ? <span className="footer-link-text">Donate</span> : null}
                     </div>
                 </div>
                 <span className="footer-link-text-small">©{new Date().getFullYear()} CuteAnime</span>

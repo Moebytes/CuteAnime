@@ -1,10 +1,7 @@
-import React, {useContext, useEffect, useState, useReducer} from "react"
+import React, {useEffect, useReducer} from "react"
+import {useLayoutActions} from "../store"
 import TitleBar from "../components/TitleBar"
-import SideBar from "../components/SideBar"
 import Footer from "../components/Footer"
-import functions from "../structures/Functions"
-import DonationDialog from "../dialogs/DonationDialog"
-import {EnableDragContext} from "../Context"
 import aboutImg from "../assets/images/about.png"
 import switchingSubtitles from "../assets/images/switchingsubtitles.png"
 import subtitlecatalog from "../assets/images/subtitlecatalog.png"
@@ -17,7 +14,7 @@ import "./styles/aboutpage.less"
 
 const AboutPage: React.FunctionComponent = (props) => {
     const [ignored, forceUpdate] = useReducer(x => x + 1, 0)
-    const {enableDrag, setEnableDrag} = useContext(EnableDragContext)
+    const {setEnableDrag} = useLayoutActions()
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -29,7 +26,6 @@ const AboutPage: React.FunctionComponent = (props) => {
     
     return (
         <>
-        <DonationDialog/>
         <TitleBar rerender={forceUpdate}/>
         <div className="body">
             <div className="content" onMouseEnter={() => setEnableDrag(true)}>

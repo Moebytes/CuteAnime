@@ -1,7 +1,6 @@
-import React, {useContext, useEffect, useState} from "react"
-import {useHistory} from "react-router-dom"
-import {HashLink as Link} from "react-router-hash-link"
-import {EnableDragContext, SidebarSortContext, SearchContext, SearchFlagContext, SortContext, ReverseContext, MobileContext} from "../Context"
+import React, {useEffect} from "react"
+import {useLayoutSelector, useLayoutActions, useSearchSelector, useSearchActions, useFlagActions} from "../store"
+import {useNavigate, useLocation} from "react-router-dom"
 import functions from "../structures/Functions"
 import date from "../assets/icons/date.png"
 import alphabetic from "../assets/icons/alphabetic.png"
@@ -21,14 +20,13 @@ interface Props {
 }
 
 const SortBar: React.FunctionComponent<Props> = (props) => {
-    const {enableDrag, setEnableDrag} = useContext(EnableDragContext)
-    const {search, setSearch} = useContext(SearchContext)
-    const {searchFlag, setSearchFlag} = useContext(SearchFlagContext)
-    const {sidebarSort, setSidebarSort} = useContext(SidebarSortContext)
-    const {sort, setSort} = useContext(SortContext)
-    const {reverse, setReverse} = useContext(ReverseContext)
-    const {mobile, setMobile} = useContext(MobileContext)
-    const history = useHistory()
+    const {mobile} = useLayoutSelector()
+    const {setEnableDrag} = useLayoutActions()
+    const {search, sort, sidebarSort, reverse} = useSearchSelector()
+    const {setSearch, setSidebarSort, setSort, setReverse} = useSearchActions()
+    const {setSearchFlag} = useFlagActions()
+    const navigate = useNavigate()
+    const location = useLocation()
 
     useEffect(() => {
         const savedSort = localStorage.getItem("sort")
@@ -53,7 +51,7 @@ const SortBar: React.FunctionComponent<Props> = (props) => {
     }
 
     const searchClick = () => {
-        if (history.location.pathname !== "/" && history.location.pathname !== "/anime" && history.location.pathname !== "/home") history.push("/anime")
+        if (location.pathname !== "/" && location.pathname !== "/anime" && location.pathname !== "/home") navigate("/anime")
         setSearchFlag(true)
     }
 
@@ -85,7 +83,7 @@ const SortBar: React.FunctionComponent<Props> = (props) => {
                         <span className="sortbar-button-text">Difficulty</span>
                     </span>
                 </button> : null}
-                <button className="sortbar-button" onClick={() => setReverse((prev: boolean) => !prev)}>
+                <button className="sortbar-button" onClick={() => setReverse(!reverse)}>
                     <span className="sortbar-button-hover">
                         <img className="sortbar-button-img" src={reverse ? sortReverseIcon : sortIcon} style={{filter: getFilter()}}/>
                     </span>
@@ -93,7 +91,7 @@ const SortBar: React.FunctionComponent<Props> = (props) => {
             </div> : null}
             {props.anime && props.num && props.title && props.id ? 
             <div className="sortbar-episode-container">
-                <span className="sortbar-anime-title" onClick={() => history.push(`/anime/${props.id}`)}>{props.anime}</span>
+                <span className="sortbar-anime-title" onClick={() => navigate(`/anime/${props.id}`)}>{props.anime}</span>
                 <span className="sortbar-episode-num">{props.num.includes("OVA") ? props.num : `Episode ${props.num}`}{!mobile ? " -" : ""}</span>
                 {!mobile ? <span className="sortbar-episode-title">{props.title}</span> : null}
             </div> : null}

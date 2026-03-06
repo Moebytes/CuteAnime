@@ -1,12 +1,11 @@
-import React, {useContext, useEffect, useState} from "react"
-import {useHistory} from "react-router-dom"
-import {EnableDragContext, MobileContext} from "../Context"
+import React, {useEffect, useState} from "react"
+import {useLayoutSelector} from "../store"
+import {useNavigate} from "react-router-dom"
 import functions from "../structures/Functions"
 import back from "../assets/icons/back.png"
 import bookmark from "../assets/icons/bookmark.png"
 import unbookmark from "../assets/icons/unbookmark.png"
 import support from "../assets/icons/support.png"
-import database from "../json/database"
 import download from "../assets/icons/download.png"
 import "./styles/videooptions.less"
 
@@ -41,10 +40,9 @@ interface Props {
 }
 
 const VideoOptions: React.FunctionComponent<Props> = (props) => {
-    const {enableDrag, setEnableDrag} = useContext(EnableDragContext)
-    const {mobile, setMobile} = useContext(MobileContext)
+    const {mobile} = useLayoutSelector()
     const [saved, setSaved] = useState(false)
-    const history = useHistory()
+    const navigate = useNavigate()
 
     const num = props.num.includes("OVA") ? props.num : Number(props.num)
 
@@ -79,7 +77,7 @@ const VideoOptions: React.FunctionComponent<Props> = (props) => {
     return (
         <div className="video-options">
             <div className="video-options-container">
-                <button className="video-options-button" onClick={() => history.push(`/anime/${props.info.id}`)}>
+                <button className="video-options-button" onClick={() => navigate(`/anime/${props.info.id}`)}>
                     <span className="video-options-button-hover">
                         <img className="video-options-button-img" src={back}/>
                         <span className="video-options-button-text">{"Back"}</span>

@@ -1,8 +1,4 @@
-import React, {useContext, useEffect, useState} from "react"
-import {useHistory} from "react-router-dom"
-import {HashLink as Link} from "react-router-hash-link"
-import {EnableDragContext} from "../Context"
-import functions from "../structures/Functions"
+import React from "react"
 import database from "../json/database"
 import GridAnime from "./GridAnime"
 import "./styles/relatedanime.less"
@@ -38,10 +34,6 @@ interface Props {
 }
 
 const RelatedAnime: React.FunctionComponent<Props> = (props) => {
-    const {enableDrag, setEnableDrag} = useContext(EnableDragContext)
-    const history = useHistory()
-
-
     const generateJSX = () => {
         let jsx = [] as any
         const related = props.info.related

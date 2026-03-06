@@ -1,8 +1,6 @@
-import React, {useContext, useEffect, useState, useRef} from "react"
-import {useHistory} from "react-router-dom"
-import {HashLink as Link} from "react-router-hash-link"
-import {EnableDragContext, MobileContext} from "../Context"
-import functions from "../structures/Functions"
+import React, {useEffect, useState, useRef} from "react"
+import {useLayoutSelector} from "../store"
+import {useNavigate} from "react-router-dom"
 import watch from "../assets/icons/watch.png"
 import bookmark from "../assets/icons/bookmark.png"
 import unbookmark from "../assets/icons/unbookmark.png"
@@ -17,13 +15,12 @@ interface Props {
 }
 
 const GridAnime: React.FunctionComponent<Props> = (props) => {
-    const {enableDrag, setEnableDrag} = useContext(EnableDragContext)
-    const {mobile, setMobile} = useContext(MobileContext)
+    const {mobile} = useLayoutSelector()
     const [drag, setDrag] = useState(false)
     const [hover, setHover] = useState(false)
     const [saved, setSaved] = useState(false)
     const imageRef = useRef<HTMLImageElement>(null)
-    const history = useHistory()
+    const navigate = useNavigate()
 
     const imageAnimation = (event: React.MouseEvent<HTMLDivElement>) => {
         if (!imageRef.current) return
@@ -83,7 +80,7 @@ const GridAnime: React.FunctionComponent<Props> = (props) => {
             if (event.metaKey || event.ctrlKey || event.button == 1) {
                 return
             } else {
-                history.push(`/anime/${props.id}`)
+                navigate(`/anime/${props.id}`)
             }
         }
     }
@@ -120,7 +117,7 @@ const GridAnime: React.FunctionComponent<Props> = (props) => {
                     </div>
                 </div>
                 {!mobile && !props.noButtons ? <div className="grid-anime-button-container">
-                    <button className="grid-anime-button" onClick={() => history.push(`/anime/${props.id}`)} onAuxClick={onClick}>
+                    <button className="grid-anime-button" onClick={() => navigate(`/anime/${props.id}`)} onAuxClick={onClick}>
                         <span className="grid-anime-button-hover">
                             <img className="grid-anime-button-img" src={watch}/>
                             <span className="grid-anime-button-text">Watch</span>

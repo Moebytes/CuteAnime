@@ -1,9 +1,7 @@
-import React, {useContext, useEffect, useState} from "react"
-import {useHistory} from "react-router-dom"
-import {EnableDragContext, MobileContext} from "../Context"
+import React from "react"
+import {useNavigate} from "react-router-dom"
 import info from "../assets/icons/info.png"
 import functions from "../structures/Functions"
-import database from "../assets/icons/database.png"
 import "./styles/episodeinfo.less"
 
 interface Props {
@@ -37,14 +35,12 @@ interface Props {
 }
 
 const EpisodeInfo: React.FunctionComponent<Props> = (props) => {
-    const {enableDrag, setEnableDrag} = useContext(EnableDragContext)
-    const {mobile, setMobile} = useContext(MobileContext)
-    const history = useHistory()
+    const navigate = useNavigate()
 
     const num = props.num.includes("OVA") ? props.num : Number(props.num)
     const episode = props.info.episodes.find((e) => e.episodeNumber === num)
     if (!episode) {
-        history.push("/404")
+        navigate("/404")
         return null 
     }
 
@@ -94,7 +90,8 @@ const EpisodeInfo: React.FunctionComponent<Props> = (props) => {
             </div>
             <div className="episode-info-row">
                 <span className="episode-info-category">Synopsis:</span>
-                <span className="episode-info-content">{episode.synopsis} <span className="episode-info-text-content-link" onClick={() => window.open(props.info.episodeSource, "_blank")}>[{functions.websiteName(props.info.episodeSource)}]</span></span>
+                <span className="episode-info-content">{episode.synopsis} <span className="episode-info-text-content-link" 
+                onClick={() => window.open(props.info.episodeSource, "_blank")}>[{functions.websiteName(props.info.episodeSource)}]</span></span>
             </div>
         </div>
     )

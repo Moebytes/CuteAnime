@@ -1,8 +1,7 @@
-import React, {useContext, useEffect, useState, useRef, useReducer, useMemo} from "react"
-import {useHistory} from "react-router-dom"
-import {EnableDragContext, MobileContext, SpeedContext, BrightnessContext, ContrastContext, HueContext, SaturationContext, LightnessContext, JumpFlagContext, InvertContext,
-BlurContext, SharpenContext, PixelateContext, SubtitleIndexENContext, SubtitleIndexJAContext, JapaneseCuesContext, EnglishCuesContext, SiteColorChangeContext} from "../Context"
-import database from "../json/database"
+import React, {useEffect, useState, useRef, useReducer, useMemo} from "react"
+import {useLayoutActions, useThemeSelector, usePlaybackSelector, useFlagActions,
+usePlaybackActions, useFilterSelector, useFilterActions, useFlagSelector} from "../store"
+import {useNavigate} from "react-router-dom"
 import Slider from "react-slider"
 import videoReverseIcon from "../assets/icons/video-reverse.png"
 import videoSpeedIcon from "../assets/icons/video-speed.png"
@@ -67,22 +66,43 @@ interface Props {
 
 const VideoPlayer: React.FunctionComponent<Props> = (props) => {
     const [ignored, forceUpdate] = useReducer(x => x + 1, 0)
-    const {enableDrag, setEnableDrag} = useContext(EnableDragContext)
-    const {mobile, setMobile} = useContext(MobileContext)
-    const {siteColorChange, setSiteColorChange} = useContext(SiteColorChangeContext)
-    const {brightness, setBrightness} = useContext(BrightnessContext)
-    const {contrast, setContrast} = useContext(ContrastContext)
-    const {hue, setHue} = useContext(HueContext)
-    const {saturation, setSaturation} = useContext(SaturationContext)
-    const {lightness, setLightness} = useContext(LightnessContext)
-    const {pixelate, setPixelate} = useContext(PixelateContext)
-    const {invert, setInvert} = useContext(InvertContext)
-    const {blur, setBlur} = useContext(BlurContext)
-    const {sharpen, setSharpen} = useContext(SharpenContext)
+    const {setEnableDrag} = useLayoutActions()
+    const {siteColorChange} = useThemeSelector()
+    const {brightness, contrast, hue, saturation, lightness, 
+        pixelate, invert, blur, sharpen} = useFilterSelector()
+    const {setBrightness, setContrast, setHue, setSaturation, setLightness, 
+        setPixelate, setInvert, setBlur, setSharpen} = useFilterActions()
+    const {speed, japaneseCues, englishCues, subtitleIndexJA} = usePlaybackSelector()
+    const {setSpeed, setJapaneseCues, setEnglishCues, setSubtitleIndexJA, setSubtitleIndexEN} = usePlaybackActions()
+    const {jumpFlag} = useFlagSelector()
+    const {setJumpFlag} = useFlagActions()
+
     const [showSpeedDropdown, setShowSpeedDropdown] = useState(false)
     const [showVolumeSlider, setShowVolumeSlider] = useState(false)
     const [showSubtitleDropdown, setShowSubtitleDropdown] = useState(false)
     const [showFilterDropdown, setShowFilterDropdown] = useState(false)
+    const [videoLoaded, setVideoLoaded] = useState(false)
+    const [backFrame, setBackFrame] = useState(null) as any
+    const [secondsProgress, setSecondsProgress] = useState(0)
+    const [progress, setProgress] = useState(0)
+    const [dragProgress, setDragProgress] = useState(0) as any
+    const [reverse, setReverse] = useState(false)
+    const [volume, setVolume] = useState(0.5)
+    const [previousVolume, setPreviousVolume] = useState(0)
+    const [paused, setPaused] = useState(false)
+    const [preservePitch, setPreservePitch] = useState(true)
+    const [duration, setDuration] = useState(0)
+    const [dragging, setDragging] = useState(false)
+    const [seekTo, setSeekTo] = useState(null) as any
+    const [subtitleTextJA, setSubtitleTextJA] = useState("") 
+    const [subtitleTextEN, setSubtitleTextEN] = useState("")
+    const [showJapaneseSubs, setShowJapaneseSubs] = useState(true)
+    const [showEnglishSubs, setShowEnglishSubs] = useState(false)
+    const [abloop, setABLoop] = useState(false)
+    const [loopStart, setLoopStart] = useState(0)
+    const [loopEnd, setLoopEnd] = useState(100)
+    const [controlsVisible, setControlsVisible] = useState(false)
+    const [subtitleHover, setSubtitleHover] = useState(false)
     const videoFiltersRef = useRef<HTMLDivElement>(null)
     const videoOverlayRef = useRef<HTMLCanvasElement>(null)
     const videoLightnessRef = useRef<HTMLImageElement>(null)
@@ -96,43 +116,15 @@ const VideoPlayer: React.FunctionComponent<Props> = (props) => {
     const videoFilterRef = useRef(null) as any
     const videoSpeedSliderRef = useRef<any>(null)
     const videoVolumeSliderRef = useRef<any>(null)
-    const [videoLoaded, setVideoLoaded] = useState(false)
-    const [backFrame, setBackFrame] = useState(null) as any
-    const [secondsProgress, setSecondsProgress] = useState(0)
-    const [progress, setProgress] = useState(0)
-    const [dragProgress, setDragProgress] = useState(0) as any
-    const {speed, setSpeed} = useContext(SpeedContext)
-    const [reverse, setReverse] = useState(false)
-    const [volume, setVolume] = useState(0.5)
-    const [previousVolume, setPreviousVolume] = useState(0)
-    const [paused, setPaused] = useState(false)
-    const [preservePitch, setPreservePitch] = useState(true)
-    const [duration, setDuration] = useState(0)
-    const [dragging, setDragging] = useState(false)
-    const [seekTo, setSeekTo] = useState(null) as any
     const fullscreenRef = useRef<HTMLDivElement>(null)
-    const {japaneseCues, setJapaneseCues} = useContext(JapaneseCuesContext) as any
-    const {englishCues, setEnglishCues} = useContext(EnglishCuesContext) as any
-    const {subtitleIndexJA, setSubtitleIndexJA} = useContext(SubtitleIndexJAContext)
-    const {subtitleIndexEN, setSubtitleIndexEN} = useContext(SubtitleIndexENContext)
-    const [subtitleTextJA, setSubtitleTextJA] = useState("") 
-    const [subtitleTextEN, setSubtitleTextEN] = useState("")
-    const [showJapaneseSubs, setShowJapaneseSubs] = useState(true)
-    const [showEnglishSubs, setShowEnglishSubs] = useState(false)
-    const {jumpFlag, setJumpFlag} = useContext(JumpFlagContext)
-    const [abloop, setABLoop] = useState(false)
-    const [loopStart, setLoopStart] = useState(0)
-    const [loopEnd, setLoopEnd] = useState(100)
-    const [controlsVisible, setControlsVisible] = useState(false)
-    const [subtitleHover, setSubtitleHover] = useState(false)
     const abSlider = useRef(null) as any
     const subtitleRef = useRef(null) as any
-    const history = useHistory()
+    const navigate = useNavigate()
 
     const num = props.num.includes("OVA") ? props.num : Number(props.num)
     const episode = props.info.episodes.find((e) => e.episodeNumber === num)
     if (!episode) {
-        history.push("/404")
+        navigate("/404")
         return null 
     }
 
@@ -1031,7 +1023,7 @@ const VideoPlayer: React.FunctionComponent<Props> = (props) => {
                             <Slider className="video-filter-slider" trackClassName="video-filter-slider-track" thumbClassName="video-filter-slider-thumb" onChange={(value) => setPixelate(value)} min={1} max={10} step={0.1} value={pixelate}/>
                         </div>
                         <div className="video-filter-dropdown-row">
-                            <button className="video-filter-dropdown-button" onClick={() => setInvert((prev: boolean) => !prev)} style={{marginRight: "30px"}}>Invert</button>
+                            <button className="video-filter-dropdown-button" onClick={() => setInvert(!invert)} style={{marginRight: "30px"}}>Invert</button>
                             <button className="video-filter-dropdown-button" onClick={() => resetFilters()}>Reset</button>
                         </div>
                     </div>

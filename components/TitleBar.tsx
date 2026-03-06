@@ -1,14 +1,10 @@
-import React, {useContext, useEffect, useState} from "react"
-import {useHistory} from "react-router-dom"
-import {HashLink as Link} from "react-router-hash-link"
+import React, {useEffect, useState} from "react"
+import {useLayoutSelector, useLayoutActions, useThemeSelector, useThemeActions} from "../store"
+import {useNavigate} from "react-router-dom"
 import favicon from "../assets/icons/favicon.png"
-import {EnableDragContext, SiteHueContext, SiteSaturationContext, SiteLightnessContext, SiteColorChangeContext, MobileContext} from "../Context"
 import functions from "../structures/Functions"
 import color from "../assets/icons/color.png"
 import Slider from "react-slider"
-import hueIcon from "../assets/icons/hue.png"
-import saturationIcon from "../assets/icons/saturation.png"
-import lightnessIcon from "../assets/icons/lightness.png"
 import "./styles/titlebar.less"
 
 const colorList = {
@@ -43,14 +39,12 @@ interface Props {
 let timer = null as any 
 
 const TitleBar: React.FunctionComponent<Props> = (props) => {
-    const {enableDrag, setEnableDrag} = useContext(EnableDragContext)
-    const {siteHue, setSiteHue} = useContext(SiteHueContext)
-    const {siteSaturation, setSiteSaturation} = useContext(SiteSaturationContext)
-    const {siteColorChange, setSiteColorChange} = useContext(SiteColorChangeContext)
-    const {siteLightness, setSiteLightness} = useContext(SiteLightnessContext)
+    const {mobile} = useLayoutSelector()
+    const {setEnableDrag} = useLayoutActions()
+    const {siteHue, siteSaturation, siteLightness, siteColorChange} = useThemeSelector()
+    const {setSiteHue, setSiteSaturation, setSiteLightness, setSiteColorChange} = useThemeActions()
     const [activeDropdown, setActiveDropdown] = useState(false)
-    const {mobile, setMobile} = useContext(MobileContext)
-    const history = useHistory()
+    const navigate = useNavigate()
 
     useEffect(() => {
         const savedHue = localStorage.getItem("siteHue")
@@ -65,7 +59,7 @@ const TitleBar: React.FunctionComponent<Props> = (props) => {
         if (typeof window === "undefined") return
         clearTimeout(timer)
         timer = setTimeout(() => {
-            setSiteColorChange((prev: boolean) => !prev)
+            setSiteColorChange(!siteColorChange)
         }, 500)
         for (let i = 0; i < Object.keys(colorList).length; i++) {
             const key = Object.keys(colorList)[i]
@@ -75,9 +69,9 @@ const TitleBar: React.FunctionComponent<Props> = (props) => {
         setTimeout(() => {
             props.rerender()
         }, 100)
-        localStorage.setItem("siteHue", siteHue)
-        localStorage.setItem("siteSaturation", siteSaturation)
-        localStorage.setItem("siteLightness", siteLightness)
+        localStorage.setItem("siteHue", String(siteHue))
+        localStorage.setItem("siteSaturation", String(siteSaturation))
+        localStorage.setItem("siteLightness", String(siteLightness))
     }, [siteHue, siteSaturation, siteLightness])
 
     const resetFilters = () => {
@@ -97,7 +91,7 @@ const TitleBar: React.FunctionComponent<Props> = (props) => {
     }
 
     const titleClick = () => {
-        history.push("/")
+        navigate("/")
     }
 
     return (
@@ -122,9 +116,9 @@ const TitleBar: React.FunctionComponent<Props> = (props) => {
             </div>
             <div className="titlebar-container">
                 <div className="titlebar-nav-container">
-                    {!mobile ? <span className="titlebar-nav-text" onClick={() => history.push("/anime")}>Anime</span> : null}
+                    {!mobile ? <span className="titlebar-nav-text" onClick={() => navigate("/anime")}>Anime</span> : null}
                     {!mobile ? <span className="titlebar-nav-text" onClick={() => window.open(functions.isLocalHost() ? "http://localhost:8080" : "https://cutemanga.moe", "_blank")}>Manga</span> : null}
-                    <span className="titlebar-nav-text" onClick={() => history.push("/about")}>About</span>
+                    <span className="titlebar-nav-text" onClick={() => navigate("/about")}>About</span>
                 </div>
                 {!mobile ?
                 <div className="titlebar-nav-container">
@@ -135,17 +129,20 @@ const TitleBar: React.FunctionComponent<Props> = (props) => {
                 <div className="dropdown-row">
                     {/* <img className="dropdown-icon" src={hueIcon} style={{filter": getFilter()}}/> */}
                     <span className="dropdown-text">Hue</span>
-                    <Slider className="dropdown-slider" trackClassName="dropdown-slider-track" thumbClassName="dropdown-slider-thumb" onChange={(value) => setSiteHue(value)} min={60} max={300} step={1} value={siteHue}/>
+                    <Slider className="dropdown-slider" trackClassName="dropdown-slider-track" thumbClassName="dropdown-slider-thumb" 
+                    onChange={(value) => setSiteHue(value)} min={60} max={300} step={1} value={siteHue}/>
                 </div>
                 <div className="dropdown-row">
                     {/* <img className="dropdown-icon" src={saturationIcon} style={{filter": getFilter()}}/> */}
                     <span className="dropdown-text">Saturation</span>
-                    <Slider className="dropdown-slider" trackClassName="dropdown-slider-track" thumbClassName="dropdown-slider-thumb" onChange={(value) => setSiteSaturation(value)} min={50} max={100} step={1} value={siteSaturation}/>
+                    <Slider className="dropdown-slider" trackClassName="dropdown-slider-track" thumbClassName="dropdown-slider-thumb" 
+                    onChange={(value) => setSiteSaturation(value)} min={50} max={100} step={1} value={siteSaturation}/>
                 </div>
                 <div className="dropdown-row">
                     {/* <img className="dropdown-icon" src={lightnessIcon} style={{filter": getFilter()}}/> */}
                     <span className="dropdown-text">Lightness</span>
-                    <Slider className="dropdown-slider" trackClassName="dropdown-slider-track" thumbClassName="dropdown-slider-thumb" onChange={(value) => setSiteLightness(value)} min={45} max={55} step={1} value={siteLightness}/>
+                    <Slider className="dropdown-slider" trackClassName="dropdown-slider-track" thumbClassName="dropdown-slider-thumb" 
+                    onChange={(value) => setSiteLightness(value)} min={45} max={55} step={1} value={siteLightness}/>
                 </div>
                 <div className="dropdown-row">
                     <button className="dropdown-button" onClick={() => resetFilters()}>Reset</button>

@@ -1,23 +1,23 @@
-import React, {useContext, useEffect, useState, useReducer} from "react"
-import {useHistory} from "react-router-dom"
-import {EnableDragContext, SearchContext, SearchFlagContext, SidebarSortContext, GenreContext, MobileContext} from "../Context"
+import React, {useEffect, useState} from "react"
+import {useLayoutSelector, useLayoutActions, useSearchSelector, 
+useSearchActions, useFlagActions} from "../store"
+import {useNavigate, useLocation} from "react-router-dom"
 import recent from "../assets/icons/recent.png"
 import genreIcon from "../assets/icons/genre.png"
 import searchIcon from "../assets/icons/search.png"
-import {HashLink as Link} from "react-router-hash-link"
 import dbFunctions from "../structures/DatabaseFunctions"
 import functions from "../structures/Functions"
 import "./styles/sidebar.less"
 
-const SideBar: React.FunctionComponent= (props) => {
-    const {enableDrag, setEnableDrag} = useContext(EnableDragContext)
-    const {search, setSearch} = useContext(SearchContext)
-    const {searchFlag, setSearchFlag} = useContext(SearchFlagContext)
-    const {sidebarSort, setSidebarSort} = useContext(SidebarSortContext)
-    const {genre, setGenre} = useContext(GenreContext)
-    const {mobile, setMobile} = useContext(MobileContext)
+const SideBar: React.FunctionComponent= () => {
+    const {mobile} = useLayoutSelector()
+    const {setEnableDrag} = useLayoutActions()
+    const {search, sidebarSort} = useSearchSelector()
+    const {setSearch, setSidebarSort, setGenre} = useSearchActions()
+    const {setSearchFlag} = useFlagActions()
     const [showSearchBar, setShowSearchBar] = useState(false)
-    const history = useHistory()
+    const navigate = useNavigate()
+    const location = useLocation()
 
     const getFilter = () => {
         if (typeof window === "undefined") return
@@ -60,13 +60,13 @@ const SideBar: React.FunctionComponent= (props) => {
             const recent = dbFunctions.getRecent()
             let max = recent.length < 22 ? recent.length : 22
             for (let i = 0; i < recent.length; i++) {
-                jsx.push(<span className="sidebar-link" onClick={() => history.push(`/anime/${recent[i].id}`)}>{recent[i].title}</span>)
+                jsx.push(<span className="sidebar-link" onClick={() => navigate(`/anime/${recent[i].id}`)}>{recent[i].title}</span>)
             }
         } else if (sidebarSort === "genre") {
             const genres = dbFunctions.getGenres()
             for (let i = 0; i < genres.length; i++) {
                 const click = () => {
-                    if (history.location.pathname !== "/" && history.location.pathname !== "/anime" && history.location.pathname !== "/home") history.push("/anime")
+                    if (location.pathname !== "/" && location.pathname !== "/anime" && location.pathname !== "/home") navigate("/anime")
                     setGenre(genres[i])
                 }
                 jsx.push(<span className="sidebar-link" onClick={click}>{genres[i]}</span>)
@@ -79,7 +79,7 @@ const SideBar: React.FunctionComponent= (props) => {
     }
 
     const searchClick = () => {
-        if (history.location.pathname !== "/" && history.location.pathname !== "/anime" && history.location.pathname !== "/home") history.push("/anime")
+        if (location.pathname !== "/" && location.pathname !== "/anime" && location.pathname !== "/home") navigate("/anime")
         setSearchFlag(true)
     }
 

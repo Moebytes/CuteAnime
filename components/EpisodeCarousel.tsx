@@ -1,9 +1,7 @@
-import React, {useContext, useEffect, useState, useRef} from "react"
-import {useHistory} from "react-router-dom"
-import {EnableDragContext, MobileContext} from "../Context"
+import React, {useEffect, useState, useRef} from "react"
+import {useLayoutActions} from "../store"
 import GridEpisode from "./GridEpisode"
 import functions from "../structures/Functions"
-import database from "../assets/icons/database.png"
 import carouselLeft from "../assets/icons/carousel-left.png"
 import carouselRight from "../assets/icons/carousel-right.png"
 import "./styles/episodecarousel.less"
@@ -42,8 +40,7 @@ interface Props {
 let startX = 0
 
 const EpisodeCarousel: React.FunctionComponent<Props> = (props) => {
-    const {enableDrag, setEnableDrag} = useContext(EnableDragContext)
-    const {mobile, setMobile} = useContext(MobileContext)
+    const {setEnableDrag} = useLayoutActions()
     const [showLeftArrow, setShowLeftArrow] = useState(false)
     const [showRightArrow, setShowRightArrow] = useState(false)
     const [lastPos, setLastPos] = useState(null) as any
@@ -52,7 +49,6 @@ const EpisodeCarousel: React.FunctionComponent<Props> = (props) => {
     const [lastActive, setLastActive] = useState(episodesRef[props.index ? props.index : 0])
     const [active, setActive] = useState(episodesRef[props.index ? props.index : 0])
     const sliderRef = useRef<any>(null)
-    const history = useHistory()
 
     const scrollToEpisode = async () => {
         const slider = document.querySelector(".episode-carousel-slider") as HTMLDivElement

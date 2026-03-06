@@ -1,8 +1,5 @@
-import React, {useContext, useEffect, useState, useMemo, useRef} from "react"
-import {useHistory} from "react-router-dom"
-import {HashLink as Link} from "react-router-hash-link"
-import {EnableDragContext, MobileContext, SubtitleIndexENContext, SubtitleIndexJAContext, JapaneseCuesContext, 
-EnglishCuesContext, JumpFlagContext, SiteColorChangeContext} from "../Context"
+import React, {useEffect, useState, useMemo, useRef} from "react"
+import {useThemeSelector, usePlaybackSelector, useFlagActions, useLayoutActions } from "../store"
 import functions from "../structures/Functions"
 import checkbox from "../assets/icons/checkbox.png"
 import checkboxChecked from "../assets/icons/checkbox-checked.png"
@@ -14,18 +11,13 @@ interface Props {
 }
 
 const EpisodeSubtitles: React.FunctionComponent<Props> = (props) => {
-    const {enableDrag, setEnableDrag} = useContext(EnableDragContext)
-    const {mobile, setMobile} = useContext(MobileContext)
-    const {siteColorChange, setSiteColorChange} = useContext(SiteColorChangeContext)
-    const {japaneseCues, setJapaneseCues} = useContext(JapaneseCuesContext) as any
-    const {englishCues, setEnglishCues} = useContext(EnglishCuesContext) as any
-    const {subtitleIndexJA, setSubtitleIndexJA} = useContext(SubtitleIndexJAContext)
-    const {subtitleIndexEN, setSubtitleIndexEN} = useContext(SubtitleIndexENContext)
+    const {setEnableDrag} = useLayoutActions()
+    const {siteColorChange} = useThemeSelector()
+    const {setJumpFlag} = useFlagActions()
+    const {japaneseCues, englishCues, subtitleIndexJA, subtitleIndexEN} = usePlaybackSelector()
     const [showSubtitleTranslation, setShowSubtitleTranslation] = useState(false)
     const [lastElement, setLastElement] = useState(null) as any
-    const {jumpFlag, setJumpFlag} = useContext(JumpFlagContext)
     const containerRef = useRef(null) as any
-    const history = useHistory()
 
     const getFilter = (active?: boolean) => {
         if (typeof window === "undefined") return
@@ -59,7 +51,8 @@ const EpisodeSubtitles: React.FunctionComponent<Props> = (props) => {
             jsx.push(
                 <div className="episode-subtitles-cue" onMouseEnter={() => setEnableDrag(false)}>
                     <div className="episode-subtitles-cue-row">
-                        <img className="episode-subtitles-cue-marker" src={subtitleMarker} style={{filter: getFilter()}} onClick={() => setJumpFlag(i)}/>
+                        <img className="episode-subtitles-cue-marker" src={subtitleMarker} style={{filter: getFilter()}} 
+                        onClick={() => setJumpFlag(i)}/>
                         <span className="episode-subtitles-cue-text">{sortedCues[i].text}</span>
                     </div>
                     {showSubtitleTranslation ?

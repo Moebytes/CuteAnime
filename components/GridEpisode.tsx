@@ -1,8 +1,6 @@
-import React, {useContext, useEffect, useState, useRef} from "react"
-import {useHistory} from "react-router-dom"
-import {HashLink as Link} from "react-router-hash-link"
-import {EnableDragContext, MobileContext} from "../Context"
-import functions from "../structures/Functions"
+import React, {useState, useRef} from "react"
+import {useLayoutSelector} from "../store"
+import {useNavigate} from "react-router-dom"
 import "./styles/gridepisode.less"
 
 interface Props {
@@ -15,12 +13,11 @@ interface Props {
 }
 
 const GridEpisode = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
-    const {enableDrag, setEnableDrag} = useContext(EnableDragContext)
-    const {mobile, setMobile} = useContext(MobileContext)
+    const {mobile} = useLayoutSelector()
     const [drag, setDrag] = useState(false)
     const [hover, setHover] = useState(false)
     const imageRef = useRef<HTMLImageElement>(null)
-    const history = useHistory()
+    const navigate = useNavigate()
 
     const imageAnimation = (event: React.MouseEvent<HTMLDivElement>) => {
         if (!imageRef.current) return
@@ -61,7 +58,7 @@ const GridEpisode = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
             if (event.metaKey || event.ctrlKey || event.button == 1) {
                 return
             } else {
-                history.push(`/anime/${props.id}/${String(props.num).replaceAll(" ", "+")}`)
+                navigate(`/anime/${props.id}/${String(props.num).replaceAll(" ", "+")}`)
             }
         }
     }

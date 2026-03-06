@@ -1,14 +1,12 @@
-import React, {useEffect, useContext, useReducer, useState} from "react"
-import {Switch, Route, Redirect, useHistory, useLocation} from "react-router-dom"
-import {EnableDragContext} from "../Context"
+import React, {useEffect, useReducer} from "react"
+import {useLayoutActions} from "../store"
+import {useNavigate, useParams} from "react-router-dom"
 import TitleBar from "../components/TitleBar"
 import SideBar from "../components/SideBar"
-import Sortbar from "../components/Sortbar"
 import Footer from "../components/Footer"
 import AnimeInfo from "../components/AnimeInfo"
 import EpisodeGrid from "../components/EpisodeGrid"
 import RelatedAnime from "../components/RelatedAnime"
-import DonationDialog from "../dialogs/DonationDialog"
 import functions from "../structures/Functions"
 import database from "../json/database"
 
@@ -18,24 +16,23 @@ interface Props {
 
 const AnimeInfoPage: React.FunctionComponent<Props> = (props) => {
     const [ignored, forceUpdate] = useReducer(x => x + 1, 0)
-    const {enableDrag, setEnableDrag} = useContext(EnableDragContext)
-    const history = useHistory()
+    const {setEnableDrag} = useLayoutActions()
+    const navigate = useNavigate()
+    const {id} = useParams<{id: string}>()
 
-    const id = props.match.params.id
     const info = database.find((m) => m.id === id)
     if (!info) {
-        history.push(`/404`)
+        navigate(`/404`)
         return null
     }
 
     useEffect(() => {
-        document.title = `${functions.toProperCase(id.replaceAll("-", " "))}`
+        if (id) document.title = `${functions.toProperCase(id.replaceAll("-", " "))}`
         localStorage.removeItem("secondsProgress")
     }, [])
 
     return (
         <>
-        <DonationDialog/>
         <TitleBar rerender={forceUpdate}/>
         <div className="body">
             <SideBar/>

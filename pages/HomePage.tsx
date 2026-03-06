@@ -1,22 +1,21 @@
-import React, {useEffect, useContext, useReducer, useState} from "react"
-import {EnableDragContext} from "../Context"
+import React, {useEffect, useReducer} from "react"
+import {useLayoutActions} from "../store"
 import TitleBar from "../components/TitleBar"
 import SideBar from "../components/SideBar"
-import Sortbar from "../components/Sortbar"
+import Sortbar from "../components/SortBar"
 import MangaGrid from "../components/AnimeGrid"
 import Footer from "../components/Footer"
-import DonationDialog from "../dialogs/DonationDialog"
 
 const HomePage: React.FunctionComponent = (props) => {
     const [ignored, forceUpdate] = useReducer(x => x + 1, 0)
-    const {enableDrag, setEnableDrag} = useContext(EnableDragContext)
+    const {setEnableDrag} = useLayoutActions()
+
     useEffect(() => {
         document.title = "CuteAnime: Watch Anime with Japanese subtitles"
     }, [])
 
     return (
         <>
-        <DonationDialog/>
         <TitleBar rerender={forceUpdate}/>
         <div className="body">
             <SideBar/>

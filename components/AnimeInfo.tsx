@@ -1,7 +1,4 @@
-import React, {useContext, useEffect, useState} from "react"
-import {useHistory} from "react-router-dom"
-import {HashLink as Link} from "react-router-hash-link"
-import {EnableDragContext} from "../Context"
+import React from "react"
 import functions from "../structures/Functions"
 import "./styles/animeinfo.less"
 
@@ -36,9 +33,6 @@ interface Props {
 }
 
 const AnimeInfo: React.FunctionComponent<Props> = (props) => {
-    const {enableDrag, setEnableDrag} = useContext(EnableDragContext)
-    const history = useHistory()
-
     return (
         <div className="anime-info">
             <div className="anime-info-container">

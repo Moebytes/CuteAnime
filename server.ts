@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, "./public")))
 app.use(express.static(path.join(__dirname, "./dist"), {index: false}))
 app.use("/assets", express.static(path.join(__dirname, "./assets")))
 
-app.get("/Anime/*", function(req, res, next) {
+app.get("/Anime/{*page}", function(req, res, next) {
   if (req.path.includes("/anime")) return next()
   res.setHeader("Content-Type", mime.getType(req.path) ?? "")
   res.header("Access-Control-Allow-Origin", "*")
@@ -48,17 +48,16 @@ app.get("/Anime/*", function(req, res, next) {
   }
 })
 
-app.get("/*", function(req, res) {
+app.get("/{*page}", function(req, res) {
     res.setHeader("Content-Type", mime.getType(req.path) ?? "")
     res.header("Access-Control-Allow-Origin", "*")
-    //res.setHeader("Cross-Origin-Opener-Policy", "same-origin")
-    //res.setHeader("Cross-Origin-Embedder-Policy", "require-corp")
     const document = fs.readFileSync(path.join(__dirname, "./dist/index.html"), {encoding: "utf-8"})
     res.status(200).send(document)
 })
 
 const run = async () => {
-  app.listen(process.env.PORT || 8081, () => console.log("Started the website server!"))
+  let port = process.env.PORT || 8081
+  app.listen(port, () => console.log(`Started the web server! http://localhost:${port}`))
   dbFunctions.logGenres()
 }
 
