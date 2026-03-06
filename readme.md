@@ -74,8 +74,6 @@ Anime
 └── etc.
 ```
 
-<img src="assets/images/filestructure.png">
-
 The name of every file in the folders should be "Anime Name (episode number)". 
 
 A good resource to find Japanese subtitles for lots of anime is [Kitsunekko](https://kitsunekko.net/dirlist.php?dir=subtitles%2Fjapanese%2F). 
