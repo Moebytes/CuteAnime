@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"
 import {Routes, Route} from "react-router-dom"
 import {useLayoutActions} from "./store"
+import LocalStorage from "./LocalStorage"
 import HomePage from "./pages/HomePage"
 import AnimeInfoPage from "./pages/AnimeInfoPage"
 import AnimePage from "./pages/AnimePage"
@@ -34,6 +35,7 @@ const App: React.FunctionComponent = () => {
 
     return (
         <div className={`app ${!loaded ? "stop-transitions" : ""}`}>
+            <LocalStorage/>
             <Routes>
                 <Route path="/" element={<HomePage/>}/>
                 <Route path="/anime" element={<HomePage/>}/>

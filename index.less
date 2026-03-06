@@ -3,34 +3,54 @@
     src: url("/assets/fonts/Mangaka.otf") format("opentype");
 }
 
+@font-face {
+    font-family: "GenEi M Gothic v2";
+    src: url("assets/fonts/GenEiMGothic2-Medium.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Honoka Shin Antique-Kaku";
+    src: url("assets/fonts/Honoka-Shin-Antique-Kaku_M.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Tsunagi Gothic Black";
+    src: url("assets/fonts/TsunagiGothic.ttf") format("truetype");
+}
+
 @titlebar-height: 70px;
 @pdf-controls-height: 40px;
 @sidebar-width: 400px;
 
 :root {
     --selection: rgba(177, 168, 255, 0.302);
-    --text: #3a2bf6;
-    --text-alt: #2b2ef6;
-    --text-dark: #241feb;
     --subtitles: #ffffff;
     --activeSubtitles: #ff2fee;
-    --background: #07011b;
-    --titlebarBG: #090328;
-    --titlebarText: #3a2bfc;
-    --titlebarText2: #2920d9;
-    --titlebarTextAlt: #261ca4;
-    --sidebarBG: #0d0025;
-    --sidebarText: #3b24e2;
-    --sidebarButton: #210fa8;
-    --sidebarLink: #3330ff;
-    --sortbarButton: #2100e0;
-    --sortbarSearchBG: #180098;
-    --gridButton: #2e30ff;
-    --footerBG: #090328;
-    --dropdownBG: rgba(8, 0, 51, 0.95);
-    --videoSlider: #302dee;
-    --videoSliderActive: #2356ff;
-    --videoABSlider: #3b1ee2;
+	--buttonBG: #f9ddeb;
+	--textColor: #801060;
+	--background: #ffffff;
+	--sidebarBG: #ffffff;
+	--navbarBG: #faedf7;
+	--titleColor: #ca6a9f;
+	--buttonText: #ffffff;
+	--buttonBG2: #e378ad;
+	--gridBG: #faedf7;
+	--searchBorder: #dfd2de;
+	--sidebarButton: #f7d0e8;
+}
+
+.dark {
+	--buttonBG: #3a1728;
+	--textColor: #ffffff;
+	--background: #231620;
+	--sidebarBG: #241724;
+	--navbarBG: #241721;
+	--titleColor: #d34f9a;
+	--buttonText: #000000;
+	--buttonBG2: #ec63a7;
+	--gridBG: #1c0f19;
+	--searchBorder: #160915;
+	--sidebarButton: #3a1d2f;
 }
 
 * {
@@ -38,7 +58,7 @@
     padding: 0;
     box-sizing: border-box;
     scrollbar-width: thin;
-    scrollbar-color: var(--titlebarBG) var(--background);
+    scrollbar-color: var(--navbarBG) var(--background);
 }
 
 .stop-transitions * { 
@@ -105,7 +125,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--titlebarBG);
+    background: var(--navbarBG);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -114,23 +134,6 @@ body {
 
 ::-webkit-scrollbar-corner {
     background: rgba(0,0,0,0);
-  }
-
-
-.stroke-black() {
-    text-shadow: 0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black,0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black,0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black,0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black;
-}
-
-.stroke-black-thin() {
-    text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black,0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black,0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black,0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
-}
-
-.stroke-black-thick() {
-    text-shadow: 0 0 3px black, 0 0 3px black, 0 0 3px black, 0 0 3px black, 0 0 3px black,0 0 3px black, 0 0 3px black, 0 0 3px black, 0 0 3px black, 0 0 3px black,0 0 3px black, 0 0 3px black, 0 0 3px black, 0 0 3px black, 0 0 3px black,0 0 3px black, 0 0 3px black, 0 0 3px black, 0 0 3px black, 0 0 3px black;
-}
-
-.stroke-white() {
-    text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white,0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white,0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white,0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white;
 }
 
 input[type="search"]::-webkit-search-decoration,

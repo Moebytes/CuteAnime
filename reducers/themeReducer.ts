@@ -2,7 +2,7 @@ import {createSlice} from "@reduxjs/toolkit"
 import {useSelector, useDispatch} from "react-redux"
 import type {StoreState, StoreDispatch} from "../store"
 
-type Themes = "light" | "dark"
+export type Themes = "light" | "dark"
 
 const themeSlice = createSlice({
     name: "theme",
