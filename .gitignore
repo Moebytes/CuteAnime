@@ -1,7 +1,10 @@
 .DS_Store
 .env
+dump.rdb
 dist
 node_modules
 json/database.js
 json/episodes.js
+json/database2.js
+json/episodes2.js
 assets/icons/saved
