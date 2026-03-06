@@ -2,11 +2,11 @@ import React, {useEffect, useState} from "react"
 import {useLayoutSelector} from "../store"
 import {useNavigate} from "react-router-dom"
 import functions from "../structures/Functions"
-import back from "../assets/icons/back.png"
-import bookmark from "../assets/icons/bookmark.png"
-import unbookmark from "../assets/icons/unbookmark.png"
-import support from "../assets/icons/support.png"
-import download from "../assets/icons/download.png"
+import BackIcon from "../assets/svg/back.svg"
+import BookmarkIcon from "../assets/svg/bookmark.svg"
+import UnbookmarkIcon from "../assets/svg/unbookmark.svg"
+import SupportIcon from "../assets/svg/support.svg"
+import DownloadIcon from "../assets/svg/download.svg"
 import "./styles/videooptions.less"
 
 interface Props {
@@ -79,7 +79,7 @@ const VideoOptions: React.FunctionComponent<Props> = (props) => {
             <div className="video-options-container">
                 <button className="video-options-button" onClick={() => navigate(`/anime/${props.info.id}`)}>
                     <span className="video-options-button-hover">
-                        <img className="video-options-button-img" src={back}/>
+                        <BackIcon className="video-options-button-img"/>
                         <span className="video-options-button-text">{"Back"}</span>
                     </span>
                 </button>
@@ -88,19 +88,21 @@ const VideoOptions: React.FunctionComponent<Props> = (props) => {
                 {!mobile ? <>
                 <button className="video-options-button" onClick={downloadSubs}>
                     <span className="video-options-button-hover">
-                        <img className="video-options-button-img" src={download}/>
+                        <DownloadIcon className="video-options-button-img"/>
                         <span className="video-options-button-text">{"Download Subs"}</span>
                     </span>
                 </button>
                 <button className="video-options-button" onClick={save}>
                     <span className="video-options-button-hover">
-                        <img className="video-options-button-img" src={saved ? unbookmark : bookmark}/>
+                        {saved ?
+                        <UnbookmarkIcon className="video-options-button-img"/> :
+                        <BookmarkIcon className="video-options-button-img"/>}
                         <span className="video-options-button-text">{saved ? "Unbookmark" : "Bookmark"}</span>
                     </span>
                 </button></> : null}
                 <button className="video-options-button" onClick={() => window.open(props.info.website, "_blank")}>
                     <span className="video-options-button-hover">
-                        <img className="video-options-button-img" src={support}/>
+                        <SupportIcon className="video-options-button-img"/>
                         <span className="video-options-button-text">{"Support"}</span>
                     </span>
                 </button>

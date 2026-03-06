@@ -5,7 +5,6 @@ import HomePage from "./pages/HomePage"
 import AnimeInfoPage from "./pages/AnimeInfoPage"
 import AnimePage from "./pages/AnimePage"
 import AboutPage from "./pages/AboutPage"
-import TermsPage from "./pages/TermsPage"
 import $404Page from "./pages/404Page"
 import "./index.less"
 
@@ -41,9 +40,6 @@ const App: React.FunctionComponent = () => {
                 <Route path="/anime/:id" element={<AnimeInfoPage/>}/>
                 <Route path="/anime/:id/:num" element={<AnimePage/>}/>
                 <Route path="/about" element={<AboutPage/>}/>
-                <Route path="/tos" element={<TermsPage/>}/>
-                <Route path="/terms" element={<TermsPage/>}/>
-                <Route path="/privacy" element={<TermsPage/>}/>
                 <Route path="/*" element={<$404Page/>}/>
             </Routes>
         </div>

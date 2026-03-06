@@ -1,6 +1,6 @@
 import React from "react"
 import {useNavigate} from "react-router-dom"
-import info from "../assets/icons/info.png"
+import InfoIcon from "../assets/svg/info.svg"
 import functions from "../structures/Functions"
 import "./styles/episodeinfo.less"
 
@@ -54,7 +54,7 @@ const EpisodeInfo: React.FunctionComponent<Props> = (props) => {
     return (
         <div className="episode-info">
             <div className="episode-info-row">
-                <img className="episode-info-icon" src={info} style={{filter: getFilter()}}/>
+                <InfoIcon className="episode-info-icon"/>
                 <span className="episode-info-title">Info</span>
             </div>
             <div className="episode-info-row">

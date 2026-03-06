@@ -2,9 +2,9 @@ import React, {useEffect, useState} from "react"
 import {useLayoutSelector, useLayoutActions, useSearchSelector, 
 useSearchActions, useFlagActions} from "../store"
 import {useNavigate, useLocation} from "react-router-dom"
-import recent from "../assets/icons/recent.png"
-import genreIcon from "../assets/icons/genre.png"
-import searchIcon from "../assets/icons/search.png"
+import RecentIcon from "../assets/svg/recent.svg"
+import GenreIcon from "../assets/svg/genre.svg"
+import SearchIcon from "../assets/svg/search.svg"
 import dbFunctions from "../structures/DatabaseFunctions"
 import functions from "../structures/Functions"
 import "./styles/sidebar.less"
@@ -97,13 +97,13 @@ const SideBar: React.FunctionComponent= () => {
                     <div className="sidebar-button-container">
                         <button className="sidebar-button" onClick={() => {setSidebarSort("recent"); setGenre("")}}>
                             <span className="sidebar-button-hover" style={{filter: sidebarSort === "recent" ? getFilter() : ""}}>
-                                <img className="sidebar-button-img" src={recent}/>
+                                <RecentIcon className="sidebar-button-img"/>
                                 <span className="sidebar-button-text">Recent</span>
                             </span>
                         </button>
                         <button className="sidebar-button" onClick={() => setSidebarSort("genre")}>
                             <span className="sidebar-button-hover" style={{filter: sidebarSort === "genre" ? getFilter() : ""}}>
-                                <img className="sidebar-button-img" src={genreIcon}/>
+                                <GenreIcon className="sidebar-button-img"/>
                                 <span className="sidebar-button-text">Genre</span>
                             </span>
                         </button>
@@ -113,7 +113,7 @@ const SideBar: React.FunctionComponent= () => {
                         <input className="sidebar-search" type="search" placeholder="Anime name..." spellCheck="false" value={search} onChange={(event) => setSearch(event.target.value)}/>
                         <button className="sidebar-search-button" onClick={searchClick}>
                             <span className="sidebar-search-button-hover">
-                                <img className="sidebar-search-button-img" src={searchIcon}/>
+                                <SearchIcon className="sidebar-search-button-img"/>
                             </span>
                         </button>
                     </div>

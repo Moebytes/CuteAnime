@@ -3,35 +3,31 @@ import {useLayoutActions, useThemeSelector, usePlaybackSelector, useFlagActions,
 usePlaybackActions, useFilterSelector, useFilterActions, useFlagSelector} from "../store"
 import {useNavigate} from "react-router-dom"
 import Slider from "react-slider"
-import videoReverseIcon from "../assets/icons/video-reverse.png"
-import videoSpeedIcon from "../assets/icons/video-speed.png"
-import videoClearIcon from "../assets/icons/video-clear.png"
-import videoPlayIcon from "../assets/icons/video-play.png"
-import videoPauseIcon from "../assets/icons/video-pause.png"
-import videoRewindIcon from "../assets/icons/video-rewind.png"
-import videoFastforwardIcon from "../assets/icons/video-fastforward.png"
-import videoPreservePitchIcon from "../assets/icons/video-preservepitch.png"
-import videoPreservePitchOnIcon from "../assets/icons/video-preservepitch-on.png"
-import videoFullscreenIcon from "../assets/icons/video-fullscreen.png"
-import videoVolumeIcon from "../assets/icons/video-volume.png"
-import videoVolumeLowIcon from "../assets/icons/video-volume-low.png"
-import videoVolumeMuteIcon from "../assets/icons/video-volume-mute.png"
-import videoABLoopIcon from "../assets/icons/video-abloop.png"
-import videoABLoopActiveIcon from "../assets/icons/video-abloop-active.png"
-import videoSubIcon from "../assets/icons/video-sub.png"
-import videoSubActiveIcon from "../assets/icons/video-sub-active.png"
-import videoFXIcon from "../assets/icons/video-fx.png"
-import brightnessIcon from "../assets/icons/brightness.png"
-import contrastIcon from "../assets/icons/contrast.png"
-import hueIcon from "../assets/icons/hue.png"
-import saturationIcon from "../assets/icons/saturation.png"
-import lightnessIcon from "../assets/icons/lightness.png"
-import blurIcon from "../assets/icons/blur.png"
-import sharpenIcon from "../assets/icons/sharpen.png"
-import pixelateIcon from "../assets/icons/pixelate.png"
+import SpeedIcon from "../assets/svg/speed.svg"
+import ClearIcon from "../assets/svg/revert.svg"
+import PlayIcon from "../assets/svg/play.svg"
+import PauseIcon from "../assets/svg/pause.svg"
+import RewindIcon from "../assets/svg/rewind.svg"
+import FastforwardIcon from "../assets/svg/fastforward.svg"
+import PreservePitchIcon from "../assets/svg/pitch.svg"
+import FullscreenIcon from "../assets/svg/fullscreen.svg"
+import VolumeIcon from "../assets/svg/volume.svg"
+import VolumeLowIcon from "../assets/svg/volume-low.svg"
+import VolumeMuteIcon from "../assets/svg/volume-mute.svg"
+import ABLoopIcon from "../assets/svg/abloop.svg"
+import SubIcon from "../assets/svg/sub.svg"
+import FXIcon from "../assets/svg/fx.svg"
+import BrightnessIcon from "../assets/svg/brightness.svg"
+import ContrastIcon from "../assets/svg/contrast.svg"
+import HueIcon from "../assets/svg/hue.svg"
+import SaturationIcon from "../assets/svg/saturation.svg"
+import LightnessIcon from "../assets/svg/lightness.svg"
+import BlurIcon from "../assets/svg/blur.svg"
+import SharpenIcon from "../assets/svg/sharpen.svg"
+import PixelateIcon from "../assets/svg/pixelate.svg"
+import CheckboxIcon from "../assets/svg/checkbox.svg"
+import CheckboxCheckedIcon from "../assets/svg/checkbox-checked.svg"
 import functions from "../structures/Functions"
-import checkbox from "../assets/icons/checkbox.png"
-import checkboxChecked from "../assets/icons/checkbox-checked.png"
 import "./styles/videoplayer.less"
 
 interface Props {
@@ -653,21 +649,6 @@ const VideoPlayer: React.FunctionComponent<Props> = (props) => {
         }
     }, [controlsVisible, subtitleHover])
 
-    const getVideoPlayIcon = () => {
-        if (paused) return videoPlayIcon
-        return videoPauseIcon
-    }
-
-    const getVideoVolumeIcon = () => {
-        if (volume > 0.5) {
-            return videoVolumeIcon
-        } else if (volume > 0) {
-            return videoVolumeLowIcon
-        } else {
-            return videoVolumeMuteIcon
-        }
-    }
-
     const reset = () => {
         changeReverse(false)
         setSpeed(1)
@@ -875,7 +856,8 @@ const VideoPlayer: React.FunctionComponent<Props> = (props) => {
     return (
         <div className="video-player" onMouseEnter={() => setEnableDrag(false)} ref={fullscreenRef}>
             <div className="video-player-video-container" style={{filter: invert ? "invert(1)" : ""}}>
-                <div className="video-subtitles" style={{minHeight: getSubMinHeight()}} ref={subtitleRef} onMouseEnter={() => setSubtitleHover(true)} onMouseLeave={() => setSubtitleHover(false)}>
+                <div className="video-subtitles" style={{minHeight: getSubMinHeight()}} ref={subtitleRef} 
+                onMouseEnter={() => setSubtitleHover(true)} onMouseLeave={() => setSubtitleHover(false)}>
                     {showJapaneseSubs ? 
                     <div className="video-subtitles-row" onMouseEnter={() => setEnableDrag(false)}>
                         <span className="video-subtitles-text">{subtitleTextJA}</span>
@@ -889,7 +871,8 @@ const VideoPlayer: React.FunctionComponent<Props> = (props) => {
                     <img className="video-lightness-overlay" ref={videoLightnessRef} src={backFrame}/>
                     <canvas className="video-sharpen-overlay" ref={videoOverlayRef}></canvas>
                     <canvas className="video-canvas" ref={videoCanvasRef}></canvas>
-                    <video crossOrigin="anonymous" autoPlay disablePictureInPicture playsInline className="video" ref={videoRef} src={video} onLoadedData={(event) => onLoad(event)}>
+                    <video crossOrigin="anonymous" autoPlay disablePictureInPicture playsInline className="video" ref={videoRef} 
+                        src={video} onLoadedData={(event) => onLoad(event)}>
                         <track kind="subtitles" src={japaneseSubs} srcLang="ja" style={{opacity: 0}}/>
                         <track kind="subtitles" src={englishSubs} srcLang="en" style={{opacity: 0}}/>
                     </video>
@@ -899,40 +882,48 @@ const VideoPlayer: React.FunctionComponent<Props> = (props) => {
                 <div className="video-control-row" onMouseEnter={() => setEnableDrag(false)} onMouseLeave={() => setEnableDrag(true)}>
                     <p className="video-control-text">{dragging ? functions.formatSeconds(dragProgress) : functions.formatSeconds(secondsProgress)}</p>
                     <div className="video-control-slider-container">
-                        <Slider ref={videoSliderRef} className="video-slider" trackClassName="video-slider-track" thumbClassName="video-slider-thumb" min={0} max={100} step={0.01} value={progress} onBeforeChange={() => setDragging(true)} onChange={(value) => updateProgressText(value)} onAfterChange={(value) => seek(reverse ? 100 - value : value)}/>
-                        <Slider ref={abSlider} className="video-ab-slider" trackClassName="video-ab-slider-track" thumbClassName="video-ab-slider-thumb" min={0} max={100} step={0.01} value={[loopStart, loopEnd]} onBeforeChange={() => setDragging(true)} onChange={(value) => updateProgressTextAB(value)} onAfterChange={(value) => changeABLoop(value)}/>
+                        <Slider ref={videoSliderRef} className="video-slider" trackClassName="video-slider-track" 
+                        thumbClassName="video-slider-thumb" min={0} max={100} step={0.01} value={progress} onBeforeChange={() => setDragging(true)} 
+                        onChange={(value) => updateProgressText(value)} onAfterChange={(value) => seek(reverse ? 100 - value : value)}/>
+                        <Slider ref={abSlider} className="video-ab-slider" trackClassName="video-ab-slider-track" 
+                        thumbClassName="video-ab-slider-thumb" min={0} max={100} step={0.01} value={[loopStart, loopEnd]} onBeforeChange={() => setDragging(true)} 
+                        onChange={(value) => updateProgressTextAB(value)} onAfterChange={(value) => changeABLoop(value)}/>
                     </div>
                     <p className="video-control-text">{functions.formatSeconds(duration)}</p>
                 </div>
                 <div className="video-control-row" onMouseEnter={() => setEnableDrag(false)} onMouseLeave={() => setEnableDrag(true)}>
                     <div className="video-control-row-container">
-                        <img className="video-control-img" ref={videoFilterRef} src={videoFXIcon} onClick={() => setShowFilterDropdown((prev) => !prev)} style={{filter}}/>
-                        <img className="video-control-img" ref={videoSpeedRef} src={videoSpeedIcon} onClick={() => setShowSpeedDropdown((prev) => !prev)} style={{filter}}/>
-                        <img className="video-control-img" onClick={() => changePreservesPitch()} src={videoPreservePitchIcon} style={{filter: preservePitch ? filter : filterActive}}/>
-                        <img className="video-control-img" src={videoClearIcon} onClick={reset} style={{filter}}/>
+                        <FXIcon className="video-control-img" ref={videoFilterRef} onClick={() => setShowFilterDropdown((prev) => !prev)}/>
+                        <SpeedIcon className="video-control-img" ref={videoSpeedRef} onClick={() => setShowSpeedDropdown((prev) => !prev)}/>
+                        <PreservePitchIcon className="video-control-img" onClick={() => changePreservesPitch()}/>
+                        <ClearIcon className="video-control-img" onClick={reset}/>
                     </div> 
                     <div className="video-ontrol-row-container">
-                        <img className="video-control-img" src={videoRewindIcon} onClick={() => prevSub()} style={{filter}}/>
-                        <img className="video-control-img" onClick={() => setPaused((prev) => !prev)} src={getVideoPlayIcon()} style={{filter}}/>
-                        <img className="video-control-img" src={videoFastforwardIcon} onClick={() => nextSub()} style={{filter}}/>
+                        <RewindIcon className="video-control-img" onClick={() => prevSub()}/>
+                        <FastforwardIcon className="video-control-img" onClick={() => nextSub()}/>
+                        {paused ? 
+                        <PlayIcon className="video-control-img" onClick={() => setPaused((prev) => !prev)}/> :
+                        <PauseIcon className="video-control-img" onClick={() => setPaused((prev) => !prev)}/>}
                     </div> 
                     <div className="video-control-row-container">
-                        <img className="video-control-img" src={videoABLoopIcon} onClick={() => toggleAB()} style={{filter: abloop ? filterActive : filter}}/>
+                        <ABLoopIcon className="video-control-img" onClick={() => toggleAB()}/>
                     </div>
                     <div className="video-control-row-container" onClick={() => setShowSubtitleDropdown((prev) => !prev)}>
-                        <img className="video-control-img" ref={videoSubtitleRef} src={videoSubIcon} style={{filter}}/>
+                        <SubIcon className="video-control-img" ref={videoSubtitleRef}/>
                     </div> 
                     <div className="video-control-row-container">
-                        <img className="video-control-img" src={videoFullscreenIcon} onClick={() => fullscreen()} style={{filter}}/>
+                        <FullscreenIcon className="video-control-img" onClick={() => fullscreen()}/>
                     </div> 
                     <div className="video-control-row-container" onMouseEnter={() => setShowVolumeSlider(true)} onMouseLeave={() => setShowVolumeSlider(false)}>
-                        <img className="video-control-img" ref={videoVolumeRef} src={getVideoVolumeIcon()} onClick={mute} style={{filter}}/>
+                        {volume <= 0.01 ?
+                        <VolumeMuteIcon className="video-control-img" ref={videoVolumeRef} onClick={mute}/> : 
+                        volume <= 0.5 ?
+                        <VolumeLowIcon className="video-control-img" ref={videoVolumeRef} onClick={mute}/> : 
+                        <VolumeIcon className="video-control-img" ref={videoVolumeRef} onClick={mute}/>}
                     </div> 
                 </div>
                 <div className={`video-speed-dropdown ${showSpeedDropdown ? "" : "hide-speed-dropdown"}`} style={{marginRight: getVideoSpeedMarginRight(), marginTop: "-240px"}}
                 onMouseEnter={() => setEnableDrag(false)} onMouseLeave={() => setEnableDrag(true)}>
-                    {/* <Slider ref={videoSpeedSliderRef} invert orientation="vertical" className="video-speed-slider" trackClassName="video-speed-slider-track" thumbClassName="video-speed-slider-thumb"
-                    value={speed} min={0.5} max={4} step={0.5} onChange={(value) => setSpeed(value)}/> */}
                     <div className="video-speed-dropdown-item" onClick={() => {setSpeed(4); setShowSpeedDropdown(false)}}>
                         <span className="video-speed-dropdown-text">4x</span>
                     </div>
@@ -965,11 +956,15 @@ const VideoPlayer: React.FunctionComponent<Props> = (props) => {
                 onMouseEnter={() => {setEnableDrag(false)}} onMouseLeave={() => {setShowSubtitleDropdown(false); setEnableDrag(true)}}>
                     <div className="video-subtitle-dropdown-container">
                         <div className="video-subtitle-dropdown-row" onClick={() => setShowJapaneseSubs((prev) => !prev)}>
-                            <img className="video-subtitle-dropdown-checkbox" src={showJapaneseSubs ? checkboxChecked : checkbox} style={{filter}}/>
+                            {showJapaneseSubs ? 
+                            <CheckboxCheckedIcon className="video-subtitle-dropdown-checkbox"/> : 
+                            <CheckboxIcon className="video-subtitle-dropdown-checkbox"/>}
                             <span className="video-subtitle-dropdown-text">Japanese</span>
                         </div>
                         <div className="video-subtitle-dropdown-row" onClick={() => setShowEnglishSubs((prev) => !prev)}>
-                            <img className="video-subtitle-dropdown-checkbox" src={showEnglishSubs ? checkboxChecked : checkbox} style={{filter}}/>
+                            {showEnglishSubs ? 
+                            <CheckboxCheckedIcon className="video-subtitle-dropdown-checkbox"/> : 
+                            <CheckboxIcon className="video-subtitle-dropdown-checkbox"/>}
                             <span className="video-subtitle-dropdown-text">English</span>
                         </div>
                     </div>
@@ -983,42 +978,42 @@ const VideoPlayer: React.FunctionComponent<Props> = (props) => {
                 onMouseEnter={() => {setShowFilterDropdown(true); setEnableDrag(false)}} onMouseLeave={() => {setShowFilterDropdown(false); setEnableDrag(true)}}>
                     <div className="video-filter-dropdown-container">
                         <div className="video-filter-dropdown-row">
-                            <img className="video-filter-dropdown-img" src={brightnessIcon}/>
+                            <BrightnessIcon className="video-filter-dropdown-img"/>
                             <span className="video-filter-dropdown-text">Brightness</span>
                             <Slider className="video-filter-slider" trackClassName="video-filter-slider-track" thumbClassName="video-filter-slider-thumb" onChange={(value) => setBrightness(value)} min={60} max={140} step={1} value={brightness}/>
                         </div>
                         <div className="video-filter-dropdown-row">
-                            <img className="video-filter-dropdown-img" src={contrastIcon} style={{marginLeft: "7px", marginRight: "-7px"}}/>
+                            <ContrastIcon className="video-filter-dropdown-img" style={{marginLeft: "7px", marginRight: "-7px"}}/>
                             <span className="video-filter-dropdown-text">Contrast</span>
                             <Slider className="video-filter-slider" trackClassName="video-filter-slider-track" thumbClassName="video-filter-slider-thumb" onChange={(value) => setContrast(value)} min={60} max={140} step={1} value={contrast}/>
                         </div>
                         <div className="video-filter-dropdown-row">
-                            <img className="video-filter-dropdown-img" src={hueIcon} style={{marginLeft: "20px", marginRight: "-20px"}}/>
+                            <HueIcon className="video-filter-dropdown-img" style={{marginLeft: "20px", marginRight: "-20px"}}/>
                             <span className="video-filter-dropdown-text">Hue</span>
                             <Slider className="video-filter-slider" trackClassName="video-filter-slider-track" thumbClassName="video-filter-slider-thumb" onChange={(value) => setHue(value)} min={150} max={210} step={1} value={hue}/>
                         </div>
                         <div className="video-filter-dropdown-row">
-                            <img className="video-filter-dropdown-img" src={saturationIcon}/>
+                            <SaturationIcon className="video-filter-dropdown-img"/>
                             <span className="video-filter-dropdown-text">Saturation</span>
                             <Slider className="video-filter-slider" trackClassName="video-filter-slider-track" thumbClassName="video-filter-slider-thumb" onChange={(value) => setSaturation(value)} min={60} max={140} step={1} value={saturation}/>
                         </div>
                         <div className="video-filter-dropdown-row">
-                            <img className="video-filter-dropdown-img" src={lightnessIcon}/>
+                            <LightnessIcon className="video-filter-dropdown-img"/>
                             <span className="video-filter-dropdown-text">Lightness</span>
                             <Slider className="video-filter-slider" trackClassName="video-filter-slider-track" thumbClassName="video-filter-slider-thumb" onChange={(value) => setLightness(value)} min={60} max={140} step={1} value={lightness}/>
                         </div>
                         <div className="video-filter-dropdown-row">
-                            <img className="video-filter-dropdown-img" src={blurIcon} style={{marginLeft: "20px", marginRight: "-20px"}}/>
+                            <BlurIcon className="video-filter-dropdown-img" style={{marginLeft: "20px", marginRight: "-20px"}}/>
                             <span className="video-filter-dropdown-text">Blur</span>
                             <Slider className="video-filter-slider" trackClassName="video-filter-slider-track" thumbClassName="video-filter-slider-thumb" onChange={(value) => setBlur(value)} min={0} max={2} step={0.1} value={blur}/>
                         </div>
                         <div className="video-filter-dropdown-row">
-                            <img className="video-filter-dropdown-img" src={sharpenIcon} style={{marginLeft: "8px", marginRight: "-8px"}}/>
+                            <SharpenIcon className="video-filter-dropdown-img" style={{marginLeft: "8px", marginRight: "-8px"}}/>
                             <span className="video-filter-dropdown-text">Sharpen</span>
                             <Slider className="video-filter-slider" trackClassName="video-filter-slider-track" thumbClassName="video-filter-slider-thumb" onChange={(value) => setSharpen(value)} min={0} max={5} step={0.1} value={sharpen}/>
                         </div>
                         <div className="video-filter-dropdown-row">
-                            <img className="video-filter-dropdown-img" src={pixelateIcon}/>
+                            <PixelateIcon className="video-filter-dropdown-img"/>
                             <span className="video-filter-dropdown-text">Pixelate</span>
                             <Slider className="video-filter-slider" trackClassName="video-filter-slider-track" thumbClassName="video-filter-slider-thumb" onChange={(value) => setPixelate(value)} min={1} max={10} step={0.1} value={pixelate}/>
                         </div>

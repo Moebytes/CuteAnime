@@ -1,9 +1,9 @@
 import React, {useEffect, useState, useMemo, useRef} from "react"
 import {useThemeSelector, usePlaybackSelector, useFlagActions, useLayoutActions } from "../store"
 import functions from "../structures/Functions"
-import checkbox from "../assets/icons/checkbox.png"
-import checkboxChecked from "../assets/icons/checkbox-checked.png"
-import subtitleMarker from "../assets/icons/subtitleMarker.png"
+import CheckboxIcon from "../assets/svg/checkbox.svg"
+import CheckboxCheckedIcon from "../assets/svg/checkbox-checked.svg"
+import WatchIcon from "../assets/svg/watch.svg"
 import "./styles/episodesubtitles.less"
 
 interface Props {
@@ -51,8 +51,7 @@ const EpisodeSubtitles: React.FunctionComponent<Props> = (props) => {
             jsx.push(
                 <div className="episode-subtitles-cue" onMouseEnter={() => setEnableDrag(false)}>
                     <div className="episode-subtitles-cue-row">
-                        <img className="episode-subtitles-cue-marker" src={subtitleMarker} style={{filter: getFilter()}} 
-                        onClick={() => setJumpFlag(i)}/>
+                        <WatchIcon className="episode-subtitles-cue-marker" onClick={() => setJumpFlag(i)}/>
                         <span className="episode-subtitles-cue-text">{sortedCues[i].text}</span>
                     </div>
                     {showSubtitleTranslation ?
@@ -111,7 +110,9 @@ const EpisodeSubtitles: React.FunctionComponent<Props> = (props) => {
                     <span className="episode-subtitles-title">Subtitles</span>
                 </div>
                 <div className="episode-subtitles-title-column">
-                    <img className="episode-subtitles-checkbox" src={showSubtitleTranslation ? checkboxChecked : checkbox} onClick={() => setShowSubtitleTranslation((prev) => !prev)} style={{filter: getFilter()}}/>
+                    {showSubtitleTranslation ?
+                    <CheckboxCheckedIcon className="episode-subtitles-checkbox" onClick={() => setShowSubtitleTranslation((prev) => !prev)}/> :
+                    <CheckboxIcon className="episode-subtitles-checkbox" onClick={() => setShowSubtitleTranslation((prev) => !prev)}/>}
                     <span className="episode-subtitles-title">Translated</span>
                 </div>
             </div>

@@ -1,9 +1,9 @@
 import React, {useEffect, useState, useRef} from "react"
 import {useLayoutSelector} from "../store"
 import {useNavigate} from "react-router-dom"
-import watch from "../assets/icons/watch.png"
-import bookmark from "../assets/icons/bookmark.png"
-import unbookmark from "../assets/icons/unbookmark.png"
+import WatchIcon from "../assets/svg/watch.svg"
+import BookmarkIcon from "../assets/svg/bookmark.svg"
+import UnbookmarkIcon from "../assets/svg/unbookmark.svg"
 import "./styles/gridanime.less"
 
 interface Props {
@@ -119,13 +119,15 @@ const GridAnime: React.FunctionComponent<Props> = (props) => {
                 {!mobile && !props.noButtons ? <div className="grid-anime-button-container">
                     <button className="grid-anime-button" onClick={() => navigate(`/anime/${props.id}`)} onAuxClick={onClick}>
                         <span className="grid-anime-button-hover">
-                            <img className="grid-anime-button-img" src={watch}/>
+                            <WatchIcon className="grid-anime-button-img"/>
                             <span className="grid-anime-button-text">Watch</span>
                         </span>
                     </button>
                     <button className="grid-anime-button" onClick={save}>
                         <span className="grid-anime-button-hover">
-                            <img className="grid-anime-button-img" src={saved ? unbookmark : bookmark}/>
+                            {saved ?
+                            <UnbookmarkIcon className="grid-anime-button-img"/> :
+                            <BookmarkIcon className="grid-anime-button-img"/>}
                             <span className="grid-anime-button-text">{saved ? "Unsave" : "Save"}</span>
                         </span>
                     </button>

@@ -2,13 +2,13 @@ import React, {useEffect} from "react"
 import {useLayoutSelector, useLayoutActions, useSearchSelector, useSearchActions, useFlagActions} from "../store"
 import {useNavigate, useLocation} from "react-router-dom"
 import functions from "../structures/Functions"
-import date from "../assets/icons/date.png"
-import alphabetic from "../assets/icons/alphabetic.png"
-import bookmark from "../assets/icons/bookmark.png"
-import difficulty from "../assets/icons/difficulty.png"
-import sortIcon from "../assets/icons/sort.png"
-import sortReverseIcon from "../assets/icons/sortReverse.png"
-import searchIcon from "../assets/icons/search.png"
+import DateIcon from "../assets/svg/date.svg"
+import AlphabeticIcon from "../assets/svg/alphabetic.svg"
+import BookmarkIcon from "../assets/svg/bookmark.svg"
+import DifficultyIcon from "../assets/svg/difficulty.svg"
+import SortIcon from "../assets/svg/sort.svg"
+import SortReverseIcon from "../assets/svg/sort-reverse.svg"
+import SearchIcon from "../assets/svg/search.svg"
 import "./styles/sortbar.less"
 
 interface Props {
@@ -61,31 +61,33 @@ const SortBar: React.FunctionComponent<Props> = (props) => {
             <div className="sortbar-button-container">
                 <button className="sortbar-button" onClick={() => setSort("date")}>
                     <span className="sortbar-button-hover" style={{filter: sort === "date" ? getFilter() : ""}}>
-                        <img className="sortbar-button-img" src={date}/>
+                        <DateIcon className="sortbar-button-img"/>
                         <span className="sortbar-button-text">Date</span>
                     </span>
                 </button>
                 <button className="sortbar-button" onClick={() => setSort("alphabetic")}>
                     <span className="sortbar-button-hover" style={{filter: sort === "alphabetic" ? getFilter() : ""}}>
-                        <img className="sortbar-button-img" src={alphabetic}/>
+                        <AlphabeticIcon className="sortbar-button-img"/>
                         <span className="sortbar-button-text">Alphabetic</span>
                     </span>
                 </button>
                 {!mobile ? <button className="sortbar-button" onClick={() => setSort("bookmarks")}>
                     <span className="sortbar-button-hover" style={{filter: sort === "bookmarks" ? getFilter() : ""}}>
-                        <img className="sortbar-button-img" src={bookmark}/>
+                        <BookmarkIcon className="sortbar-button-img"/>
                         <span className="sortbar-button-text">Bookmarks</span>
                     </span>
                 </button> : null}
                 {!mobile ? <button className="sortbar-button" onClick={() => setSort("difficulty")}>
                     <span className="sortbar-button-hover" style={{filter: sort === "difficulty" ? getFilter() : ""}}>
-                        <img className="sortbar-button-img" src={difficulty}/>
+                        <DifficultyIcon className="sortbar-button-img"/>
                         <span className="sortbar-button-text">Difficulty</span>
                     </span>
                 </button> : null}
                 <button className="sortbar-button" onClick={() => setReverse(!reverse)}>
                     <span className="sortbar-button-hover">
-                        <img className="sortbar-button-img" src={reverse ? sortReverseIcon : sortIcon} style={{filter: getFilter()}}/>
+                        {reverse ? 
+                        <SortReverseIcon className="sortbar-button-img"/> :
+                        <SortIcon className="sortbar-button-img"/>}
                     </span>
                 </button>
             </div> : null}
@@ -99,7 +101,7 @@ const SortBar: React.FunctionComponent<Props> = (props) => {
                 <input className="sortbar-search" type="search" placeholder="Anime name..." spellCheck="false" value={search} onChange={(event) => setSearch(event.target.value)}/>
                 <button className="sortbar-search-button" onClick={searchClick}>
                     <span className="sortbar-search-button-hover">
-                        <img className="sortbar-search-button-img" src={searchIcon}/>
+                        <SearchIcon className="sortbar-search-button-img"/>
                     </span>
                 </button>
             </div>

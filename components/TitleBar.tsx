@@ -3,7 +3,8 @@ import {useLayoutSelector, useLayoutActions, useThemeSelector, useThemeActions} 
 import {useNavigate} from "react-router-dom"
 import favicon from "../assets/icons/favicon.png"
 import functions from "../structures/Functions"
-import color from "../assets/icons/color.png"
+import LightIcon from "../assets/svg/light.svg"
+import DarkIcon from "../assets/svg/dark.svg"
 import Slider from "react-slider"
 import "./styles/titlebar.less"
 
@@ -122,7 +123,7 @@ const TitleBar: React.FunctionComponent<Props> = (props) => {
                 </div>
                 {!mobile ?
                 <div className="titlebar-nav-container">
-                    <img className="titlebar-nav-icon" src={color} style={{filter: getFilter()}} onClick={() => setActiveDropdown((prev) => !prev)}/>
+                    <LightIcon className="titlebar-nav-icon" onClick={() => setActiveDropdown((prev) => !prev)}/>
                 </div> : null}
             </div>
             <div className={`dropdown ${activeDropdown ? "" : "hide-dropdown"}`}>

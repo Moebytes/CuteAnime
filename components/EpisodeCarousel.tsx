@@ -2,8 +2,8 @@ import React, {useEffect, useState, useRef} from "react"
 import {useLayoutActions} from "../store"
 import GridEpisode from "./GridEpisode"
 import functions from "../structures/Functions"
-import carouselLeft from "../assets/icons/carousel-left.png"
-import carouselRight from "../assets/icons/carousel-right.png"
+import CarouselLeftIcon from "../assets/svg/carousel-left.svg"
+import CarouselRightIcon from "../assets/svg/carousel-right.svg"
 import "./styles/episodecarousel.less"
 
 interface Props {
@@ -104,7 +104,8 @@ const EpisodeCarousel: React.FunctionComponent<Props> = (props) => {
         for (let i = 0; i < props.info.episodes.length; i++) {
             const episode = props.info.episodes[i]
             const num = props.num.includes("OVA") ? props.num : Number(props.num)
-            jsx.push(<GridEpisode active={num === episode.episodeNumber} ref={episodesRef[i]} mini={true} id={props.info.id} num={episode.episodeNumber} img={episode.thumbnail} title={episode.title}/>)
+            jsx.push(<GridEpisode active={num === episode.episodeNumber} ref={episodesRef[i]} mini={true} 
+                id={props.info.id} num={episode.episodeNumber} img={episode.thumbnail} title={episode.title}/>)
         }
         return jsx
     }
@@ -247,12 +248,15 @@ const EpisodeCarousel: React.FunctionComponent<Props> = (props) => {
 
     return (
         <div className="episode-carousel">
-            <img className={`episode-carousel-left ${showLeftArrow ? "arrow-visible" : ""}`} src={carouselLeft} onMouseEnter={arrowLeftEnter} onMouseLeave={() => setShowLeftArrow(false)} onClick={arrowLeftClick} style={{filter: getFilter()}}/>
-            <div ref={sliderRef} className="episode-carousel-slider" onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}
+            <CarouselLeftIcon className={`episode-carousel-left ${showLeftArrow ? "arrow-visible" : ""}`} 
+            onMouseEnter={arrowLeftEnter} onMouseLeave={() => setShowLeftArrow(false)} onClick={arrowLeftClick}/>
+            <div ref={sliderRef} className="episode-carousel-slider" onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} 
+            onMouseUp={handleMouseUp} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}
             onMouseEnter={() => setEnableDrag(false)} onMouseLeave={() => setEnableDrag(true)}>
                 {generateJSX()}
             </div>
-            <img className={`episode-carousel-right ${showRightArrow ? "arrow-visible" : ""}`} src={carouselRight} onMouseEnter={arrowRightEnter} onMouseLeave={() => setShowRightArrow(false)} onClick={arrowRightClick} style={{filter: getFilter()}}/>
+            <CarouselRightIcon className={`episode-carousel-right ${showRightArrow ? "arrow-visible" : ""}`}
+            onMouseEnter={arrowRightEnter} onMouseLeave={() => setShowRightArrow(false)} onClick={arrowRightClick}/>
         </div>
     )
 }
