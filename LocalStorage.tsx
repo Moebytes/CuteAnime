@@ -8,7 +8,7 @@ const lightColorList = {
 	"--textColor": "#801060",
 	"--background": "#ffffff",
 	"--sidebarBG": "#ffffff",
-	"--navbarBG": "#faedf7",
+	"--navbarBG": "#ffe3f9",
 	"--titleColor": "#ca6a9f",
 	"--buttonText": "#ffffff",
 	"--buttonBG2": "#e378ad",

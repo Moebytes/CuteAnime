@@ -900,10 +900,10 @@ const VideoPlayer: React.FunctionComponent<Props> = (props) => {
                     </div> 
                     <div className="video-ontrol-row-container">
                         <RewindIcon className="video-control-img" onClick={() => prevSub()}/>
-                        <FastforwardIcon className="video-control-img" onClick={() => nextSub()}/>
                         {paused ? 
                         <PlayIcon className="video-control-img" onClick={() => setPaused((prev) => !prev)}/> :
                         <PauseIcon className="video-control-img" onClick={() => setPaused((prev) => !prev)}/>}
+                        <FastforwardIcon className="video-control-img" onClick={() => nextSub()}/>
                     </div> 
                     <div className="video-control-row-container">
                         <ABLoopIcon className="video-control-img" onClick={() => toggleAB()}/>

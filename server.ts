@@ -61,7 +61,7 @@ const run = async () => {
   dbFunctions.logGenres()
   let port = process.env.PORT || 8081
 
-  if (process.env.DEVELOPMENT === "true") {
+  if (process.env.TESTING === "yes") {
     const rsbuild = await createRsbuild({rsbuildConfig})
     const rsbuildServer = await rsbuild.createDevServer()
     app.use(rsbuildServer.middlewares)

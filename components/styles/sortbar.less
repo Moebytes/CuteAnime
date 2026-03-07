@@ -5,7 +5,20 @@
     display: flex;
     width: 100%;
     background-color: transparent;
+    justify-content: center;
+    align-items: center;
+}
+
+.sortbar-island {
+    position: relative;
+    display: flex;
+    width: 95%;
+    background-color: var(--background);
     justify-content: space-between;
+    margin-left: 20px;
+    margin-top: 15px;
+    padding: 7px 13px;
+    border-radius: 16px;
 }
 
 .sortbar-button-container {
@@ -14,18 +27,16 @@
     width: 100%;
     align-items: center;
     justify-content: flex-start;
-    margin-left: 20px;
-    margin-top: 15px;
+    gap: 15px;
 }
 
 .sortbar-button {
     display: flex;
     align-items: center;
-    background-color: var(--sortbarButton);
+    background-color: var(--buttonBG);
     border: none;
-    border-radius: 3px;
-    padding: 2px 3px;
-    margin-right: 10px;
+    border-radius: 10px;
+    padding: 5px 5px;
     height: 25px;
 }
 
@@ -33,8 +44,8 @@
     display: flex;
     align-items: center;
     &:hover {
-        cursor: pointer;
-        filter: brightness(0) invert(1) !important;
+        cursor: default;
+        filter: brightness(130%);
     }
 }
 
@@ -42,54 +53,58 @@
     height: 19px;
     width: auto;
     margin-right: 5px;
+    color: var(--textColor);
 }
 
 .sortbar-button-text {
-    font-family: "Honoka Shin Antique-Kaku", sans-serif;
+    font-family: "Tsunagi Gothic Black", sans-serif;
     font-size: 19px;
-    color: black;
+    color: var(--textColor);
 }
 
 .sortbar-search-container {
     display: flex;
     justify-content: space-between;
-    border: none;
-    margin-top: 15px;
-    margin-right: 20px;
+    height: 30px;
 }
 
 .sortbar-search {
-    height: 30px;
+    height: 100%;
     width: 200px;
-    background-color: var(--sortbarSearchBG);
+    background-color: var(--background);
     border: none;
     font-family: "Honoka Shin Antique-Kaku", sans-serif;
     font-size: 19px;
-    color: black;
+    color: var(--textColor);
     padding: 5px;
+    border-radius: 7px 0 0 7px;
+    border: 1px solid var(--searchBorder);
+    border-right: none;
 }
 
 .sortbar-search::placeholder {
     font-family: "Honoka Shin Antique-Kaku", sans-serif;
     font-size: 19px;
-    color: black;
+    color: var(--textColor);
 }
 
 .sortbar-search-button {
+    height: 100%;
     display: flex;
     align-items: center;
-    background-color: var(--sortbarButton);
+    background-color: var(--buttonBG);
     border: none;
     padding: 2px 3px;
-    height: 30px;
+    border-radius: 0 7px 7px 0;
+    border: 1px solid var(--searchBorder);
+    border-left: none;
 }
 
 .sortbar-search-button-hover {
     display: flex;
     align-items: center;
     &:hover {
-        cursor: pointer;
-        filter: brightness(0) invert(1) !important;
+        filter: brightness(130%);
     }
 }
 
@@ -97,6 +112,7 @@
     height: 22px;
     width: auto;
     cursor: pointer;
+    color: var(--textColor);
 }
 
 .sortbar-episode-container {
@@ -111,9 +127,9 @@
 }
 
 .sortbar-anime-title {
-    font-family: "Honoka Shin Antique-Kaku", sans-serif;
+    font-family: "GenEi M Gothic v2", sans-serif;
     font-size: 35px;
-    color: var(--text-alt);
+    color: var(--textColor);
     &:hover {
         cursor: pointer;
         color: white;
@@ -121,16 +137,16 @@
 }
 
 .sortbar-episode-num {
-    font-family: "Honoka Shin Antique-Kaku", sans-serif;
+    font-family: "GenEi M Gothic v2", sans-serif;
     font-size: 35px;
-    color: var(--text-dark);
+    color: var(--textColor);
     margin-left: 10px;
 }
 
 .sortbar-episode-title {
-    font-family: "Honoka Shin Antique-Kaku", sans-serif;
+    font-family: "GenEi M Gothic v2", sans-serif;
     font-size: 30px;
-    color: var(--text-dark);
+    color: var(--textColor);
     white-space: nowrap;
     margin-left: 10px;
 }

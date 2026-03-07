@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    background-color: var(--footerBG);
+    background-color: var(--navbarBG);
 }
 
 .footer-row {
@@ -37,30 +37,33 @@
     justify-content: center;
     margin-right: 20px;
     &:hover {
-        cursor: pointer;
-        filter: brightness(0) invert(1);
+        cursor: default;
+        filter: brightness(110%);
     }
 }
 
 .footer-link-text-big {
-    font-family: "Honoka Shin Antique-Kaku", sans-serif;
+    font-family: "Mangaka", sans-serif;
     font-weight: normal;
     font-size: 30px;
-    color: var(--gridButton);
+    color: var(--titleColor);
 }
 
 .footer-link-text {
-    font-family: "Honoka Shin Antique-Kaku", sans-serif;
+    font-family: "GenEi M Gothic v2", sans-serif;
     font-weight: normal;
     font-size: 22px;
-    color: var(--gridButton);
+    color: var(--titleColor);
 }
 
 .footer-link-text-small {
-    font-family: "Honoka Shin Antique-Kaku", sans-serif;
+    font-family: "GenEi M Gothic v2", sans-serif;
     font-weight: normal;
     font-size: 18px;
-    color: var(--gridButton);
+    color: var(--titleColor);
+    &:hover {
+        cursor: default;
+    }
 }
 
 .footer-link-img {
@@ -71,9 +74,9 @@
 }
 
 .footer-text {
-    font-family: "Honoka Shin Antique-Kaku", sans-serif;
+    font-family: "GenEi M Gothic v2", sans-serif;
     font-size: 16px;
-    color: var(--gridButton);
+    color: var(--titleColor);
 }
 
 @media screen and (max-width: 500px) {
