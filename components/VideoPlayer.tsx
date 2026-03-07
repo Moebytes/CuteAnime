@@ -1,6 +1,7 @@
-import React, {useEffect, useState, useRef, useReducer, useMemo} from "react"
+import React, {useEffect, useState, useRef, useContext, useReducer, useMemo} from "react"
 import {useLayoutActions, useThemeSelector, usePlaybackSelector, useFlagActions,
 usePlaybackActions, useFilterSelector, useFilterActions, useFlagSelector} from "../store"
+import {EnglishCuesContext, JapaneseCuesContext} from "../App"
 import {useNavigate} from "react-router-dom"
 import Slider from "react-slider"
 import SpeedIcon from "../assets/svg/speed.svg"
@@ -68,10 +69,12 @@ const VideoPlayer: React.FunctionComponent<Props> = (props) => {
         pixelate, invert, blur, sharpen} = useFilterSelector()
     const {setBrightness, setContrast, setHue, setSaturation, setLightness, 
         setPixelate, setInvert, setBlur, setSharpen} = useFilterActions()
-    const {speed, japaneseCues, englishCues, subtitleIndexJA} = usePlaybackSelector()
-    const {setSpeed, setJapaneseCues, setEnglishCues, setSubtitleIndexJA, setSubtitleIndexEN} = usePlaybackActions()
+    const {speed, subtitleIndexJA} = usePlaybackSelector()
+    const {setSpeed, setSubtitleIndexJA, setSubtitleIndexEN} = usePlaybackActions()
     const {jumpFlag} = useFlagSelector()
     const {setJumpFlag} = useFlagActions()
+    const {japaneseCues, setJapaneseCues} = useContext(JapaneseCuesContext)
+    const {englishCues, setEnglishCues} = useContext(EnglishCuesContext)
 
     const [showSpeedDropdown, setShowSpeedDropdown] = useState(false)
     const [showVolumeSlider, setShowVolumeSlider] = useState(false)
@@ -294,7 +297,7 @@ const VideoPlayer: React.FunctionComponent<Props> = (props) => {
         videoRef.current!.addEventListener("timeupdate", timeUpdate)
         window.addEventListener("keydown", keyDown)
         return () => {
-            videoRef.current!.removeEventListener("timeupdate", timeUpdate)
+            videoRef.current?.removeEventListener("timeupdate", timeUpdate)
             window.removeEventListener("keydown", keyDown)
         }
     })
@@ -323,19 +326,9 @@ const VideoPlayer: React.FunctionComponent<Props> = (props) => {
                 }
             }
             if (preservePitch) {
-                // @ts-ignore
                 videoRef.current.preservesPitch = true
-                // @ts-ignore
-                videoRef.current.mozPreservesPitch = true
-                // @ts-ignore
-                videoRef.current.webkitPreservesPitch = true
             } else {
-                // @ts-ignore
                 videoRef.current.preservesPitch = false 
-                // @ts-ignore
-                videoRef.current.mozPreservesPitch = false 
-                // @ts-ignore
-                videoRef.current.webkitPreservesPitch = false 
             }
             videoRef.current.playbackRate = speed 
             const videoCanvas = videoCanvasRef.current
@@ -592,7 +585,7 @@ const VideoPlayer: React.FunctionComponent<Props> = (props) => {
     }
 
     const prevSub = () => {
-        const cue = japaneseCues[subtitleIndexJA - 1]
+        const cue = japaneseCues?.[subtitleIndexJA - 1]
         if (cue) {
             if (paused) setPaused(false)
             setSeekTo(cue.startTime - 0.05)
@@ -600,7 +593,7 @@ const VideoPlayer: React.FunctionComponent<Props> = (props) => {
     }
 
     const nextSub = () => {
-        const cue = japaneseCues[subtitleIndexJA + 1]
+        const cue = japaneseCues?.[subtitleIndexJA + 1]
         if (cue) {
             if (paused) setPaused(false)
             setSeekTo(cue.startTime - 0.05)
@@ -609,7 +602,7 @@ const VideoPlayer: React.FunctionComponent<Props> = (props) => {
 
     useEffect(() => {
         if (jumpFlag) {
-            const cue = japaneseCues[jumpFlag]
+            const cue = japaneseCues?.[jumpFlag]
             if (cue) {
                 if (paused) setPaused(false)
                 setSeekTo(cue.startTime - 0.05)
@@ -724,9 +717,8 @@ const VideoPlayer: React.FunctionComponent<Props> = (props) => {
             englishTrack.mode = "hidden"
             const pollCues = async () => {
                 await functions.timeout(500)
-                const japaneseTrack = (document.querySelector(".video") as HTMLVideoElement).textTracks[0]
-                const englishTrack = (document.querySelector(".video") as HTMLVideoElement).textTracks[1]
-                console.log(japaneseTrack)
+                const japaneseTrack = (document.querySelector(".video") as HTMLVideoElement)?.textTracks[0]
+                const englishTrack = (document.querySelector(".video") as HTMLVideoElement)?.textTracks[1]
                 if (!japaneseTrack?.cues?.length || !englishTrack?.cues?.length) {
                     return pollCues()
                 } else {

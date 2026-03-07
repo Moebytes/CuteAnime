@@ -1,5 +1,6 @@
-import React, {useEffect, useState, useMemo, useRef} from "react"
-import {useThemeSelector, usePlaybackSelector, useFlagActions, useLayoutActions } from "../store"
+import React, {useEffect, useState, useContext, useMemo, useRef} from "react"
+import {useThemeSelector, usePlaybackSelector, useFlagActions, useLayoutActions} from "../store"
+import {EnglishCuesContext, JapaneseCuesContext} from "../App"
 import functions from "../structures/Functions"
 import CheckboxIcon from "../assets/svg/checkbox.svg"
 import CheckboxCheckedIcon from "../assets/svg/checkbox-checked.svg"
@@ -14,7 +15,9 @@ const EpisodeSubtitles: React.FunctionComponent<Props> = (props) => {
     const {setEnableDrag} = useLayoutActions()
     const {siteColorChange} = useThemeSelector()
     const {setJumpFlag} = useFlagActions()
-    const {japaneseCues, englishCues, subtitleIndexJA, subtitleIndexEN} = usePlaybackSelector()
+    const {subtitleIndexJA, } = usePlaybackSelector()
+    const {japaneseCues} = useContext(JapaneseCuesContext)
+    const {englishCues} = useContext(EnglishCuesContext)
     const [showSubtitleTranslation, setShowSubtitleTranslation] = useState(false)
     const [lastElement, setLastElement] = useState(null) as any
     const containerRef = useRef(null) as any
@@ -30,7 +33,7 @@ const EpisodeSubtitles: React.FunctionComponent<Props> = (props) => {
         if (!japaneseCues || !englishCues) return []
         const cueArray = [] as any
         for (let i = 0; i < japaneseCues.length; i++) {
-            const cue = japaneseCues[i]
+            const cue = japaneseCues[i] as VTTCue
             let englishCueArr = Array.from(englishCues).filter((c: any) => functions.between(cue.startTime, c.startTime, c.endTime) ||
             functions.between(c.startTime, cue.startTime, cue.endTime)).map((c: any) => c.text) as any[]
             cueArray.push({

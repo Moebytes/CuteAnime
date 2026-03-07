@@ -90,12 +90,17 @@ const GridEpisode = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
     return (
         <div className={props.mini ? "grid-episode-mini" : "grid-episode"} data-active={props.active ? "true" : null}>
             <div className="grid-episode-container">
-                <div ref={ref} className="grid-episode-img-container" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} onClick={onClick} onAuxClick={onClick} onMouseDown={mouseDown} onMouseUp={mouseUp} onMouseMove={mouseMove}>
-                    <img className="grid-episode-img" style={{height: getHeight()}} src={props.img} ref={imageRef} onMouseMove={(event) => imageAnimation(event)} onMouseLeave={() => cancelImageAnimation()}/>
+                <div ref={ref} className="grid-episode-img-container" onMouseEnter={() => setHover(true)} 
+                onMouseLeave={() => setHover(false)} onClick={onClick} onAuxClick={onClick} onMouseDown={mouseDown} 
+                onMouseUp={mouseUp} onMouseMove={mouseMove}>
+                    <img className="grid-episode-img" style={{height: getHeight()}} src={props.img} ref={imageRef} draggable={false}
+                    onMouseMove={(event) => imageAnimation(event)} onMouseLeave={() => cancelImageAnimation()}/>
                 </div>
                 <div className={`grid-episode-text-container ${!hover ? "hide-grid-episode-text" : ""}`}>
-                    <span className="grid-episode-text" style={{fontSize: getEpisodeFontSize()}}>{String(props.num).includes("OVA") ? "" : "Episode "}{props.num}</span>
-                    {props.active ? <span className="grid-episode-text" style={{fontSize: props.mini ? "17px" : "25px", color: "var(--activeSubtitles)", marginLeft: "10px"}}>(current)</span> : null}
+                    <span className="grid-episode-text" style={{fontSize: getEpisodeFontSize()}}>
+                        {String(props.num).includes("OVA") ? "" : "Episode "}{props.num}</span>
+                    {props.active ? <span className="grid-episode-text" style={{fontSize: props.mini ? "17px" : "25px", 
+                        color: "var(--activeSubtitles)", marginLeft: "10px"}}>(current)</span> : null}
                 </div>
                 <div className={`grid-episode-title-container ${!hover ? "hide-grid-episode-title" : ""}`}>
                     <span className="grid-episode-title" style={{fontSize: getTitleFontSize()}}>{props.title}</span>
