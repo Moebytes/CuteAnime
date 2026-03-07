@@ -2,6 +2,8 @@
 
 <img src="assets/images/readme.png">
 
+<img src="assets/images/player.png">
+
 CuteAnime is a web interface to study Japanese in a funner way by watching your favorite anime. 
 
 You are responsible for filling it with your own content (cover, videos, thumbnails, english subtitles, japanese subtitles, and show info). 
@@ -23,8 +25,6 @@ You can also control the speed of videos to slow them down if the speaking rate 
 ### Design
 
 Our design is available here: https://www.figma.com/design/1TVVBOp3xpd7hN34hLl4tB/CuteAnime
-
-*New design is wip
 
 ### Effective Learning
 

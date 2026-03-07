@@ -25,10 +25,12 @@
 :root {
     --selection: rgba(255, 168, 220, 0.302);
     --subtitles: #ffffff;
-    --activeSubtitles: #ff2fee;
+	--videoSlider: #ff67bb;
+    --activeSubtitles: #ef7ae5;
+    --activeColor: #2ccaff;
     --savedColor: #ac82a7;
 	--buttonBG: #f9ddeb;
-	--textColor: #801060;
+	--textColor2: #2a0820;
 	--background: #ffffff;
 	--sidebarBG: #ffffff;
 	--navbarBG: #ffe3f9;
@@ -43,6 +45,7 @@
 .dark {
 	--buttonBG: #3a1728;
 	--textColor: #ffffff;
+	--videoSlider: #ff67bb;
 	--background: #231620;
 	--sidebarBG: #241724;
 	--navbarBG: #241721;
@@ -185,4 +188,8 @@ img {
     100% {
         transform: rotate(360deg);
     }
+}
+
+a:hover, button:hover {
+    cursor: default;
 }

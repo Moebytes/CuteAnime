@@ -29,6 +29,7 @@ import PixelateIcon from "../assets/svg/pixelate.svg"
 import CheckboxIcon from "../assets/svg/checkbox.svg"
 import CheckboxCheckedIcon from "../assets/svg/checkbox-checked.svg"
 import functions from "../structures/Functions"
+import Filters from "../ui/Filters"
 import "./styles/videoplayer.less"
 
 interface Props {
@@ -768,13 +769,6 @@ const VideoPlayer: React.FunctionComponent<Props> = (props) => {
         }
     }, [englishCues])
 
-    const getFilter = (active?: boolean) => {
-        if (typeof window === "undefined") return
-        const bodyStyles = window.getComputedStyle(document.body)
-        const color = active ? bodyStyles.getPropertyValue("--videoSliderActive") : bodyStyles.getPropertyValue("--videoSlider")
-        return functions.calculateFilter(color)
-    }
-
     const changeABLoop = (value: number[]) => {
         const loopStart = value[0]
         const loopEnd = value[1]
@@ -831,20 +825,6 @@ const VideoPlayer: React.FunctionComponent<Props> = (props) => {
         return "0px"
     }
 
-    useEffect(() => {
-        if (typeof document === "undefined") return
-        const element = document.querySelector(".video-slider-thumb") as HTMLElement
-        if (element) element.style.filter = getFilter() || ""
-    }, [siteColorChange])
-
-    const filter = useMemo(() => {
-        return getFilter()
-    }, [siteColorChange])
-
-    const filterActive = useMemo(() => {
-        return getFilter(true)
-    }, [siteColorChange])
-
     return (
         <div className="video-player" onMouseEnter={() => setEnableDrag(false)} ref={fullscreenRef}>
             <div className="video-player-video-container" style={{filter: invert ? "invert(1)" : ""}}>
@@ -887,7 +867,7 @@ const VideoPlayer: React.FunctionComponent<Props> = (props) => {
                     <div className="video-control-row-container">
                         <FXIcon className="video-control-img" ref={videoFilterRef} onClick={() => setShowFilterDropdown((prev) => !prev)}/>
                         <SpeedIcon className="video-control-img" ref={videoSpeedRef} onClick={() => setShowSpeedDropdown((prev) => !prev)}/>
-                        <PreservePitchIcon className="video-control-img" onClick={() => changePreservesPitch()}/>
+                        <PreservePitchIcon className="video-control-img" onClick={() => changePreservesPitch()} style={{color: preservePitch ? "var(--activeColor)" : "var(--videoSlider)"}}/>
                         <ClearIcon className="video-control-img" onClick={reset}/>
                     </div> 
                     <div className="video-ontrol-row-container">
@@ -966,56 +946,8 @@ const VideoPlayer: React.FunctionComponent<Props> = (props) => {
                     <Slider ref={videoVolumeSliderRef} invert orientation="vertical" className="volume-slider" trackClassName="volume-slider-track" thumbClassName="volume-slider-thumb"
                     value={volume} min={0} max={1} step={0.01} onChange={(value) => changeVolume(value)}/>
                 </div>
-                <div className={`video-filter-dropdown ${showFilterDropdown ? "" : "hide-filter-dropdown"}`} style={{marginRight: getVideoFilterMarginRight(), top: "-300px"}}
-                onMouseEnter={() => {setShowFilterDropdown(true); setEnableDrag(false)}} onMouseLeave={() => {setShowFilterDropdown(false); setEnableDrag(true)}}>
-                    <div className="video-filter-dropdown-container">
-                        <div className="video-filter-dropdown-row">
-                            <BrightnessIcon className="video-filter-dropdown-img"/>
-                            <span className="video-filter-dropdown-text">Brightness</span>
-                            <Slider className="video-filter-slider" trackClassName="video-filter-slider-track" thumbClassName="video-filter-slider-thumb" onChange={(value) => setBrightness(value)} min={60} max={140} step={1} value={brightness}/>
-                        </div>
-                        <div className="video-filter-dropdown-row">
-                            <ContrastIcon className="video-filter-dropdown-img" style={{marginLeft: "7px", marginRight: "-7px"}}/>
-                            <span className="video-filter-dropdown-text">Contrast</span>
-                            <Slider className="video-filter-slider" trackClassName="video-filter-slider-track" thumbClassName="video-filter-slider-thumb" onChange={(value) => setContrast(value)} min={60} max={140} step={1} value={contrast}/>
-                        </div>
-                        <div className="video-filter-dropdown-row">
-                            <HueIcon className="video-filter-dropdown-img" style={{marginLeft: "20px", marginRight: "-20px"}}/>
-                            <span className="video-filter-dropdown-text">Hue</span>
-                            <Slider className="video-filter-slider" trackClassName="video-filter-slider-track" thumbClassName="video-filter-slider-thumb" onChange={(value) => setHue(value)} min={150} max={210} step={1} value={hue}/>
-                        </div>
-                        <div className="video-filter-dropdown-row">
-                            <SaturationIcon className="video-filter-dropdown-img"/>
-                            <span className="video-filter-dropdown-text">Saturation</span>
-                            <Slider className="video-filter-slider" trackClassName="video-filter-slider-track" thumbClassName="video-filter-slider-thumb" onChange={(value) => setSaturation(value)} min={60} max={140} step={1} value={saturation}/>
-                        </div>
-                        <div className="video-filter-dropdown-row">
-                            <LightnessIcon className="video-filter-dropdown-img"/>
-                            <span className="video-filter-dropdown-text">Lightness</span>
-                            <Slider className="video-filter-slider" trackClassName="video-filter-slider-track" thumbClassName="video-filter-slider-thumb" onChange={(value) => setLightness(value)} min={60} max={140} step={1} value={lightness}/>
-                        </div>
-                        <div className="video-filter-dropdown-row">
-                            <BlurIcon className="video-filter-dropdown-img" style={{marginLeft: "20px", marginRight: "-20px"}}/>
-                            <span className="video-filter-dropdown-text">Blur</span>
-                            <Slider className="video-filter-slider" trackClassName="video-filter-slider-track" thumbClassName="video-filter-slider-thumb" onChange={(value) => setBlur(value)} min={0} max={2} step={0.1} value={blur}/>
-                        </div>
-                        <div className="video-filter-dropdown-row">
-                            <SharpenIcon className="video-filter-dropdown-img" style={{marginLeft: "8px", marginRight: "-8px"}}/>
-                            <span className="video-filter-dropdown-text">Sharpen</span>
-                            <Slider className="video-filter-slider" trackClassName="video-filter-slider-track" thumbClassName="video-filter-slider-thumb" onChange={(value) => setSharpen(value)} min={0} max={5} step={0.1} value={sharpen}/>
-                        </div>
-                        <div className="video-filter-dropdown-row">
-                            <PixelateIcon className="video-filter-dropdown-img"/>
-                            <span className="video-filter-dropdown-text">Pixelate</span>
-                            <Slider className="video-filter-slider" trackClassName="video-filter-slider-track" thumbClassName="video-filter-slider-thumb" onChange={(value) => setPixelate(value)} min={1} max={10} step={0.1} value={pixelate}/>
-                        </div>
-                        <div className="video-filter-dropdown-row">
-                            <button className="video-filter-dropdown-button" onClick={() => setInvert(!invert)} style={{marginRight: "30px"}}>Invert</button>
-                            <button className="video-filter-dropdown-button" onClick={() => resetFilters()}>Reset</button>
-                        </div>
-                    </div>
+                <Filters active={showFilterDropdown} right={parseInt(getVideoFilterMarginRight())} top={-250}/>
                 </div>
-            </div>
             <div/>
         </div>
     )

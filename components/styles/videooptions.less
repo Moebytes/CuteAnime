@@ -23,17 +23,14 @@
 .video-options-button {
     display: flex;
     align-items: center;
-    background-color: var(--gridButton);
-    border: 2px solid black;
-    border-radius: 3px;
+    background-color: var(--buttonBG);
+    border: none;
+    border-radius: 10px;
     padding: 7px 7px;
     height: 38px;
     margin-right: 10px;
     &:last-child {
         margin-right: 0px;
-    }
-    &:hover {
-        border: 2px solid white;
     }
 }
 
@@ -41,20 +38,20 @@
     display: flex;
     align-items: center;
     &:hover {
-        cursor: pointer;
-        filter: invert(1);
+        filter: brightness(130%);
     }
 }
 
 .video-options-button-img {
-    height: 26px;
+    height: 27px;
     width: auto;
     margin-right: 5px;
+    color: var(--textColor);
 }
 
 .video-options-button-text {
-    font-family: "Honoka Shin Antique-Kaku", sans-serif;
+    font-family: "Tsunagi Gothic Black", sans-serif;
     font-size: 27px;
-    color: black;
+    color: var(--textColor);
     white-space: nowrap;
 }

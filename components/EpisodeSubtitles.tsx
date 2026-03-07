@@ -25,7 +25,7 @@ const EpisodeSubtitles: React.FunctionComponent<Props> = (props) => {
     const getFilter = (active?: boolean) => {
         if (typeof window === "undefined") return
         const bodyStyles = window.getComputedStyle(document.body)
-        const color = active ? bodyStyles.getPropertyValue("--activeSubtitles") : bodyStyles.getPropertyValue("--text")
+        const color = active ? bodyStyles.getPropertyValue("--activeSubtitles") : bodyStyles.getPropertyValue("--textColor")
         return functions.calculateFilter(color)
     }
 
@@ -74,18 +74,18 @@ const EpisodeSubtitles: React.FunctionComponent<Props> = (props) => {
     useEffect(() => {
         const element = document.querySelectorAll(".episode-subtitles-cue").item(subtitleIndexJA) as HTMLDivElement
         if (lastElement) {
-            lastElement.style.borderColor = "var(--text)"
+            lastElement.style.borderColor = "var(--buttonBG)"
             lastElement.querySelectorAll(".episode-subtitles-cue-text").forEach((e: any) => {
-                e.style.color = "var(--text)"
+                e.style.color = "var(--textColor)"
             });
-            (lastElement.querySelector(".episode-subtitles-cue-marker") as HTMLImageElement).style.filter = getFilter() || ""
+            (lastElement.querySelector(".episode-subtitles-cue-marker") as HTMLImageElement).style.color = "var(--textColor)"
         }
         if (element) {
             element.style.borderColor = "var(--activeSubtitles)"
             element.querySelectorAll(".episode-subtitles-cue-text").forEach((e: any) => {
                 e.style.color = "var(--activeSubtitles)"
             });
-            (element.querySelector(".episode-subtitles-cue-marker") as HTMLImageElement).style.filter = getFilter(true) || ""
+            (element.querySelector(".episode-subtitles-cue-marker") as HTMLImageElement).style.color = "var(--activeSubtitles)"
 
             const container = document.querySelector(".episode-subtitles-subtitle-container") as HTMLDivElement
             if (container) {

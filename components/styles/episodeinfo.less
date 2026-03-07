@@ -5,8 +5,10 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    background-color: transparent;
-    border: 1px solid var(--text);
+    background-color: var(--background);
+    border-radius: 15px;
+    overflow: hidden;
+    //border: 1px solid var(--textColor);
     padding: 10px;
 }
 
@@ -22,12 +24,13 @@
 .episode-info-icon {
     height: 28px;
     width: auto;
+    color: var(--textColor);
 }
 
 .episode-info-title {
-    font-family: "Honoka Shin Antique-Kaku", sans-serif;
+    font-family: "Tsunagi Gothic Black", sans-serif;
     font-size: 28px;
-    color: var(--text);
+    color: var(--textColor);
     margin-left: 10px;
 }
 
@@ -41,14 +44,14 @@
 .episode-info-category {
     font-family: "Honoka Shin Antique-Kaku", sans-serif;
     font-size: 18px;
-    color: var(--text);
+    color: var(--textColor);
 }
 
 .episode-info-content {
     font-family: "Honoka Shin Antique-Kaku", sans-serif;
     font-weight: bold;
     font-size: 15px;
-    color: var(--text);
+    color: var(--textColor);
     margin-left: 5px;
 }
 
@@ -56,9 +59,8 @@
     font-family: "Honoka Shin Antique-Kaku", sans-serif;
     font-weight: bold;
     font-size: 15px;
-    color: var(--text-alt);
+    color: var(--buttonBG2);
     &:hover {
-        color: white;
-        cursor: pointer;
+        filter: brightness(130%);
     }
 }

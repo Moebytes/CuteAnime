@@ -1,4 +1,6 @@
-<svg width="35" height="31" viewBox="0 0 35 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M3.18559 6.25801L3.01257 24.685L8.53587 24.742L8.45264 17.252L14.8366 17.2652V13.4107L8.36285 13.3494L8.34533 10.6425L14.8366 10.6907V6.25801H3.18559Z" fill="currentColor"/>
-<path d="M16.8367 6.21312H21.5978L24.1558 11.3488L26.9174 6.21312H31.9874L26.8758 15.6566L31.7202 24.7869H27.143L24.1558 19.8396L22.0534 24.7869L17.082 24.754L21.5913 15.4551L16.8367 6.21312Z" fill="currentColor"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 35 31">
+  <!-- Generator: Adobe Illustrator 29.1.0, SVG Export Plug-In . SVG Version: 2.1.0 Build 142)  -->
+  <path fill="currentColor" d="M.9,5.1l-.2,21.6h6.5c0,0,0-8.7,0-8.7h7.5s0-4.5,0-4.5h-7.6c0,0,0-3.2,0-3.2h7.6c0,0,0-5.1,0-5.1H.9Z"/>
+  <path fill="currentColor" d="M16.9,5.1h5.6l3,6,3.2-6h5.9l-6,11.1,5.7,10.7h-5.4l-3.5-5.8-2.5,5.8h-5.8s5.3-10.9,5.3-10.9l-5.6-10.8Z"/>
 </svg>

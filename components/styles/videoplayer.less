@@ -108,18 +108,18 @@
 
 .video-slider-track-1 {
     height: 9px;
-    background-color: black;
+    background-color: var(--background);
     border-radius: 0.2;
 }
 
 .video-slider-thumb {
     background-color: var(--videoSlider);
     border-radius: 50%;
-    margin-top: -3px;
+    margin-top: -2px;
+    margin-left: -3px;
     border: none;
     height: 20px;
     width: 20px;
-    cursor: pointer;
     &:active {
         box-shadow: none;
     }
@@ -159,6 +159,8 @@
     font-family: "Honoka Shin Antique-Kaku", sans-serif;
     font-size: 20px;
     color: white;
+    -webkit-text-stroke: 2px black;
+    paint-order: stroke fill;
     margin-left: 10px;
     margin-right: 10px;
 }
@@ -166,7 +168,7 @@
 .video-control-img {
     width: auto;
     height: 25px;
-    cursor: pointer;
+    color: var(--videoSlider);
     margin-left: 5px;
     margin-right: 5px;
     margin-bottom: 10px;
@@ -184,7 +186,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    // background-color: var(--sortbarBG);
     width: 30px;
     margin-top: 5px;
     padding-bottom: 15px;
@@ -196,11 +197,10 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    border: 1px solid var(--text);
-    background-color: rgba(22, 12, 66, 0.8);
+    border: 1px solid var(--videoSlider);
+    background-color: var(--background);
     width: 50px;
     padding: 5px;
-    cursor: pointer;
     &:hover {
         filter: brightness(130%);
     }
@@ -209,7 +209,7 @@
 .video-speed-dropdown-item {
     font-family: "Honoka Shin Antique-Kaku", sans-serif;
     font-size: 12px;
-    color: var(--text);
+    color: var(--videoSlider);
 }
 
 .video-speed-slider {
@@ -227,7 +227,7 @@
 
 .video-speed-slider-track-1 {
     width: 6px;
-    background-color: black;
+    background-color: var(--background);
     border-radius: 0.2;
 }
 
@@ -238,7 +238,6 @@
     border: none;
     height: 12px;
     width: 12px;
-    cursor: pointer;
     &:active {
         box-shadow: none;
     }
@@ -246,8 +245,6 @@
         outline: none;
     }
 }
-
-
 
 .video-volume-dropdown {
     position: absolute;
@@ -258,7 +255,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    // background-color: var(--sortbarBG);
     width: 50px;
     padding-top: 15px;
     padding-bottom: 45px;
@@ -281,13 +277,13 @@
 
 .volume-slider-track-0 {
     width: 8px;
-    background-color: var(--text);
+    background-color: var(--videoSlider);
     border-radius: 0.2;
 }
 
 .volume-slider-track-1 {
     width: 8px;
-    background-color: black;
+    background-color: var(--background);
     border-radius: 0.2;
 }
 
@@ -316,7 +312,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--text);
+    border: 1px solid var(--videoSlider);
     background-color: var(--background);
 }
 
@@ -342,8 +338,8 @@
 .video-subtitle-dropdown-checkbox {
     height: 15px;
     width: auto;
+    color: var(--videoSlider);
     &:hover {
-        cursor: pointer;
         filter: brightness(130%);
     }
 }
@@ -351,7 +347,7 @@
 .video-subtitle-dropdown-text {
     font-family: "Honoka Shin Antique-Kaku", sans-serif;
     font-size: 17px;
-    color: var(--text);
+    color: var(--videoSlider);
     margin-left: 10px;
 }
 
@@ -376,8 +372,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    //border: 1px solid var(--text);
-    background-color: var(--footerBG);
+    background-color: var(--navbarBG);
 }
 
 .hide-filter-dropdown {
@@ -413,7 +408,7 @@
     font-family: "Honoka Shin Antique-Kaku", sans-serif;
     font-size: 16px;
     margin-left: 5px;
-    color: var(--text);
+    color: var(--textColor);
 }
 
 .video-filter-slider {
@@ -428,11 +423,11 @@
 .video-filter-slider-track {
     display: flex;
     height: 9px;
-    background-color: var(--text);
+    background-color: var(--textColor);
 }
 
 .video-filter-slider-track.video-filter-slider-track-1 {
-    background-color: var(--footerBG);
+    background-color: var(--navbarBG);
 }
 
 .video-filter-slider-thumb {
@@ -442,7 +437,7 @@
     border-radius: 10;
     height: 8px;
     width: 8px;
-    background-color: var(--text);
+    background-color: var(--textColor);
     &:active {
         outline: none;
     }
@@ -452,14 +447,13 @@
 }
 
 .video-filter-dropdown-button {
-    background-color: var(--text);
+    background-color: var(--textColor);
     color: black;
     border: 1px solid black;
     font-family: "Honoka Shin Antique-Kaku", sans-serif;
     font-weight: bold;
     font-size: 15px;
     padding: 3px;
-    cursor: pointer;
     transition: all 0.1s;
     margin-top: -5px;
     margin-bottom: 3px;
@@ -491,9 +485,11 @@
 }
 
 .video-subtitles-text {
-    font-family: "Honoka Shin Antique-Kaku", sans-serif;
+    font-family: "GenEi M Gothic v2", sans-serif;
     font-weight: bold;
     color: var(--subtitles);
+    -webkit-text-stroke: 2px black;
+    paint-order: stroke fill;
     font-size: 28px;
 }
 
@@ -509,19 +505,19 @@
 
 .video-ab-slider-track-1 {
     height: 8px;
-    background-color: var(--videoABSlider);
+    background-color: var(--videoSlider);
     border-radius: 0.2;
 }
 
 .video-ab-slider-track-0 {
     height: 8px;
-    background-color: var(--videoABSlider);
+    background-color: var(--background);
     border-radius: 0.2;
 }
 
 .video-ab-slider-track-2 {
     height: 6px;
-    background-color: var(--videoABSlider);
+    background-color: var(--background);
     border-radius: 0.2;
 }
 

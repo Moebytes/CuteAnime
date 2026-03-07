@@ -30,7 +30,9 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    border: 1px solid var(--gridButton);
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: var(--background);
 }
 
 .grid-episode-img-container {
@@ -46,7 +48,6 @@
     width: auto;
     &:hover {
         filter: brightness(120%);
-        cursor: pointer;
     }
 }
 
@@ -70,7 +71,7 @@
 .grid-episode-text {
     font-family: "Honoka Shin Antique-Kaku", sans-serif;
     font-size: 27px;
-    color: var(--gridButton);
+    color: var(--textColor);
 }
 
 .hide-grid-episode-text {
@@ -81,7 +82,7 @@
 .grid-episode-title {
     font-family: "Honoka Shin Antique-Kaku", sans-serif;
     font-size: 18px;
-    color: var(--text-dark);
+    color: var(--textColor);
 }
 
 .grid-episode-title-container {

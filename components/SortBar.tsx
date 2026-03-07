@@ -64,14 +64,6 @@ const SortBar: React.FunctionComponent<Props> = (props) => {
                     <span className="sortbar-episode-num">{props.num.includes("OVA") ? props.num : `Episode ${props.num}`}{!mobile ? " -" : ""}</span>
                     {!mobile ? <span className="sortbar-episode-title">{props.title}</span> : null}
                 </div> : null}
-                <div className="sortbar-search-container" onMouseEnter={() => setEnableDrag(false)}>
-                    <input className="sortbar-search" type="search" spellCheck="false" value={search} onChange={(event) => setSearch(event.target.value)}/>
-                    <button className="sortbar-search-button" onClick={searchClick}>
-                        <span className="sortbar-search-button-hover">
-                            <SearchIcon className="sortbar-search-button-img"/>
-                        </span>
-                    </button>
-                </div>
             </div>
         )
     }

@@ -3,8 +3,7 @@ import {useLayoutSelector} from "../store"
 import {useNavigate} from "react-router-dom"
 import functions from "../structures/Functions"
 import BackIcon from "../assets/svg/back.svg"
-import BookmarkIcon from "../assets/svg/bookmark.svg"
-import UnbookmarkIcon from "../assets/svg/unbookmark.svg"
+import BookmarkIcon from "../assets/svg/bookmark-filled.svg"
 import SupportIcon from "../assets/svg/support.svg"
 import DownloadIcon from "../assets/svg/download.svg"
 import "./styles/videooptions.less"
@@ -94,10 +93,8 @@ const VideoOptions: React.FunctionComponent<Props> = (props) => {
                 </button>
                 <button className="video-options-button" onClick={save}>
                     <span className="video-options-button-hover">
-                        {saved ?
-                        <UnbookmarkIcon className="video-options-button-img"/> :
-                        <BookmarkIcon className="video-options-button-img"/>}
-                        <span className="video-options-button-text">{saved ? "Unbookmark" : "Bookmark"}</span>
+                        <BookmarkIcon className="video-options-button-img" style={{color: saved ? "var(--savedColor" : "var(--textColor)"}}/>
+                        <span className="video-options-button-text" style={{color: saved ? "var(--savedColor" : "var(--textColor)"}}>{saved ? "Saved" : "Save"}</span>
                     </span>
                 </button></> : null}
                 <button className="video-options-button" onClick={() => window.open(props.info.website, "_blank")}>
