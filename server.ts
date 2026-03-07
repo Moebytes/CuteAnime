@@ -1,3 +1,9 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Cuteanime - Learn japanese by watching anime ❤            *
+ * Copyright © 2026 Moebytes <moebytes.com>                  *
+ * Licensed under CC BY-NC 4.0. See license.txt for details. *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 import path from "path"
 import cors from "cors"
 import mime from "mime"

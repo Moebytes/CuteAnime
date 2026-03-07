@@ -1,3 +1,9 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Cuteanime - Learn japanese by watching anime ❤            *
+ * Copyright © 2026 Moebytes <moebytes.com>                  *
+ * Licensed under CC BY-NC 4.0. See license.txt for details. *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 import React, {useEffect, useState, useContext, useMemo, useRef} from "react"
 import {useThemeSelector, usePlaybackSelector, useFlagActions, useLayoutActions} from "../store"
 import {EnglishCuesContext, JapaneseCuesContext} from "../App"

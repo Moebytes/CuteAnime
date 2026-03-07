@@ -1,7 +1,12 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Cuteanime - Learn japanese by watching anime ❤            *
+ * Copyright © 2026 Moebytes <moebytes.com>                  *
+ * Licensed under CC BY-NC 4.0. See license.txt for details. *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 import GifEncoder from "gif-encoder"
 import pixels from "image-pixels"
 import path from "path"
-import axios from "axios"
 import fileType from "magic-bytes.js"
 import gifFrames from "gif-frames"
 import {hexToRgb, Color, Solver} from "./Color.ts"
