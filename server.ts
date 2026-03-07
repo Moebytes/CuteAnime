@@ -5,6 +5,8 @@ import {Readable} from "stream"
 import fs from "fs"
 import express from "express"
 import dotenv from "dotenv"
+import {createRsbuild} from "@rsbuild/core"
+import rsbuildConfig from "./rsbuild.config.ts"
 import dbFunctions from "./structures/DatabaseFunctions.ts"
 const __dirname = path.resolve()
 
@@ -48,7 +50,7 @@ app.get("/Anime/{*page}", function(req, res, next) {
   }
 })
 
-app.get("/{*page}", function(req, res) {
+app.get("/{*page}", async function(req, res) {
     res.setHeader("Content-Type", mime.getType(req.path) ?? "")
     res.header("Access-Control-Allow-Origin", "*")
     const document = fs.readFileSync(path.join(__dirname, "./dist/index.html"), {encoding: "utf-8"})
@@ -56,9 +58,23 @@ app.get("/{*page}", function(req, res) {
 })
 
 const run = async () => {
-  let port = process.env.PORT || 8081
-  app.listen(port, () => console.log(`Started the web server! http://localhost:${port}`))
   dbFunctions.logGenres()
+  let port = process.env.PORT || 8081
+
+  if (process.env.DEVELOPMENT === "true") {
+    const rsbuild = await createRsbuild({rsbuildConfig})
+    const rsbuildServer = await rsbuild.createDevServer()
+    app.use(rsbuildServer.middlewares)
+
+    app.listen(port, async () => {
+      console.log(`Started the dev server! http://localhost:${port}`)
+      await rsbuildServer.afterListen()
+    })
+  } else {
+    app.listen(port, () => {
+      console.log(`Started the web server! http://localhost:${port}`)
+    })
+  }
 }
 
 run()

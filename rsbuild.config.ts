@@ -28,8 +28,11 @@ export default defineConfig({
         }
     },
     plugins: [pluginNodePolyfill(), pluginReact(), pluginLess()],
+    server: {
+        port: 8081,
+        middlewareMode: true
+    },
     dev: {
-        hmr: true,
         writeToDisk: true
     },
     html: {

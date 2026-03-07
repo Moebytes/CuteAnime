@@ -3,10 +3,10 @@ import {useLayoutActions} from "../store"
 import TitleBar from "../components/TitleBar"
 import SideBar from "../components/SideBar"
 import Sortbar from "../components/SortBar"
-import MangaGrid from "../components/AnimeGrid"
+import AnimeGrid from "../components/AnimeGrid"
 import Footer from "../components/Footer"
 
-const HomePage: React.FunctionComponent = (props) => {
+const HomePage: React.FunctionComponent = () => {
     const [ignored, forceUpdate] = useReducer(x => x + 1, 0)
     const {setEnableDrag} = useLayoutActions()
 
@@ -21,7 +21,7 @@ const HomePage: React.FunctionComponent = (props) => {
             <SideBar/>
             <div className="content" onMouseEnter={() => setEnableDrag(true)}>
                 <Sortbar/>
-                <MangaGrid/>
+                <AnimeGrid/>
                 <Footer/>
             </div>
         </div>

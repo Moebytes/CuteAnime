@@ -11,11 +11,8 @@ import "./styles/sidebar.less"
 
 const SideBar: React.FunctionComponent= () => {
     const {mobile} = useLayoutSelector()
-    const {setEnableDrag} = useLayoutActions()
-    const {search, sidebarSort} = useSearchSelector()
-    const {setSearch, setSidebarSort, setGenre} = useSearchActions()
-    const {setSearchFlag} = useFlagActions()
-    const [showSearchBar, setShowSearchBar] = useState(false)
+    const {sidebarSort} = useSearchSelector()
+    const {setSidebarSort, setGenre} = useSearchActions()
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -25,34 +22,6 @@ const SideBar: React.FunctionComponent= () => {
         const color = bodyStyles.getPropertyValue("--sidebarLink")
         return functions.calculateFilter(color)
     }
-
-    const updateShowSearchBar = () => {
-        const sidebar = document.querySelector(".sidebar") as HTMLElement
-        const titlebar = document.querySelector(".titlebar") as HTMLElement
-        if (!sidebar || !titlebar) return
-        const height = titlebar.clientHeight
-        if (window.scrollY > height) {
-            setShowSearchBar(true)
-        } else {
-            setShowSearchBar(false)
-        }
-    }
-
-    useEffect(() => {
-        updateShowSearchBar()
-    }, [])
-
-    useEffect(() => {
-        const scrollHandler = () => {
-            updateShowSearchBar()
-        }
-        window.addEventListener("scroll", scrollHandler)
-        return () => {
-            setTimeout(() => {
-                window.removeEventListener("scroll", scrollHandler)
-            }, 10)
-        }
-    })
 
     const generateLinksJSX = () => {
         let jsx = [] as any
@@ -78,11 +47,6 @@ const SideBar: React.FunctionComponent= () => {
         return jsx
     }
 
-    const searchClick = () => {
-        if (location.pathname !== "/" && location.pathname !== "/anime" && location.pathname !== "/home") navigate("/anime")
-        setSearchFlag(true)
-    }
-
     if (mobile) return null
 
     return (
@@ -91,8 +55,7 @@ const SideBar: React.FunctionComponent= () => {
             <div className="sidebar-container">
                 <div className="sidebar-content">
                     <span className="sidebar-text">
-                        A fun Japanese learning resource. <br/>
-                        Watch anime with Japanese subtitles!
+                        Learn Japanese the fun way by watching anime!
                     </span>
                     <div className="sidebar-button-container">
                         <button className="sidebar-button" onClick={() => {setSidebarSort("recent"); setGenre("")}}>
@@ -108,16 +71,6 @@ const SideBar: React.FunctionComponent= () => {
                             </span>
                         </button>
                     </div>
-                    {showSearchBar ?
-                    <div className="sidebar-search-container" onMouseEnter={() => setEnableDrag(false)}>
-                        <input className="sidebar-search" type="search" placeholder="Anime name..." spellCheck="false" value={search} onChange={(event) => setSearch(event.target.value)}/>
-                        <button className="sidebar-search-button" onClick={searchClick}>
-                            <span className="sidebar-search-button-hover">
-                                <SearchIcon className="sidebar-search-button-img"/>
-                            </span>
-                        </button>
-                    </div>
-                    : null}
                     <div className="sidebar-link-container">
                         {generateLinksJSX()}
                     </div>

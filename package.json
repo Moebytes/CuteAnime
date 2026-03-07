@@ -4,7 +4,7 @@
   "description": "Learn Japanese by watching anime!",
   "main": "server.ts",
   "scripts": {
-    "start": "npm run clean && rsbuild build && node server.ts",
+    "start": "npm run clean && rsbuild build && cross-env DEVELOPMENT=true node server.ts",
     "build": "npm run clean && rsbuild build && npm run redirects",
     "redirects": "echo \"/* /index.html 200\" | cat > dist/_redirects",
     "server": "rsbuild build && npm run pm2",
@@ -43,6 +43,7 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/react-slider": "^1.3.6",
     "@types/react-window": "^2.0.0",
+    "cross-env": "^10.1.0",
     "del-cli": "^7.0.0",
     "dotenv": "^17.3.1",
     "express-favicon": "^2.0.4",

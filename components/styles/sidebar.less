@@ -30,16 +30,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px;
+    padding: 5px;
     height: 100%;
 }
 
 .sidebar-text {
-    font-family: "Honoka Shin Antique-Kaku", sans-serif;
-    font-size: 15px;
-    color: var(--sidebarText);
-    font-weight: bold;
-    font-style: italic;
+    font-family: "Tsunagi Gothic Black", sans-serif;
+    font-size: 20px;
+    line-height: 30px;
+    color: var(--textColor);
+    &:hover {
+        cursor: default;
+    }
 }
 
 .sidebar-button-container {
@@ -49,6 +51,7 @@
     align-items: center;
     justify-content: space-around;
     margin-top: 10px;
+    gap: 10px;
 }
 
 .sidebar-button {
@@ -56,29 +59,29 @@
     align-items: center;
     background-color: var(--sidebarButton);
     border: none;
-    padding: 5px 10px;
-    border-radius: 3px;
+    padding: 8px 10px;
+    border-radius: 14px;
 }
 
 .sidebar-button-hover {
     display: flex;
     align-items: center;
     &:hover {
-        cursor: pointer;
-        filter: brightness(0) invert(1) !important;
+        filter: brightness(130%);
     }
 }
 
 .sidebar-button-img {
     height: 25px;
     width: auto;
+    color: var(--textColor);
     margin-right: 5px;
 }
 
 .sidebar-button-text {
-    font-family: "Honoka Shin Antique-Kaku", sans-serif;
-    font-size: 27px;
-    color: black;
+    font-family: "Tsunagi Gothic Black", sans-serif;
+    font-size: 23px;
+    color: var(--textColor);
 }
 
 .sidebar-link-container {
@@ -91,13 +94,13 @@
 }
 
 .sidebar-link {
-    font-family: "Honoka Shin Antique-Kaku", sans-serif;
-    font-size: 17px;
-    margin-top: 5px;
-    color: var(--sidebarLink);
+    font-family: "GenEi M Gothic v2", sans-serif;
+    line-height: 25px;
+    font-size: 15px;
+    color: var(--textColor);
     &:hover {
-        color: white;
-        cursor: pointer;
+        cursor: default;
+        filter: brightness(130%);
     }
 }
 
@@ -112,24 +115,24 @@
 .sidebar-search {
     height: 35px;
     width: 230px;
-    background-color: var(--sortbarSearchBG);
+    background-color: var(--background);
     border: none;
     font-family: "Honoka Shin Antique-Kaku", sans-serif;
     font-size: 24px;
-    color: black;
+    color: var(--textColor);
     padding: 5px;
 }
 
 .sidebar-search::placeholder {
     font-family: "Honoka Shin Antique-Kaku", sans-serif;
     font-size: 24px;
-    color: black;
+    color: var(--textColor);
 }
 
 .sidebar-search-button {
     display: flex;
     align-items: center;
-    background-color: var(--sortbarButton);
+    background-color: var(--buttonBG);
     border: none;
     padding: 2px 3px;
     height: 35px;
@@ -139,8 +142,7 @@
     display: flex;
     align-items: center;
     &:hover {
-        cursor: pointer;
-        filter: brightness(0) invert(1) !important;
+        filter: brightness(110%);
     }
 }
 
@@ -157,6 +159,7 @@
     overflow-y: scroll;
     overflow-y: overlay;
     scrollbar-width: none;
+    gap: 5px;
     &::-webkit-scrollbar {
         display: none;
     }
