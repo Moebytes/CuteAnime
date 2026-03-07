@@ -5,6 +5,10 @@
     display: flex;
     background-color: transparent;
     margin-right: 50px;
+    border-radius: 12px;
+    overflow: hidden;
+    height: max-content;
+    background-color: var(--background);
     &:last-child {
         margin-right: 0px;
     }
@@ -18,12 +22,22 @@
 }
 
 .grid-anime-img {
-    height: 300px;
-    width: auto;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     &:hover {
-        filter: brightness(120%);
-        cursor: pointer;
+        filter: brightness(110%);
     }
+}
+
+.grid-anime-info-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 10px;
+    gap: 10px;
 }
 
 .grid-anime-button-container {
@@ -32,28 +46,35 @@
     width: 100%;
     align-items: center;
     justify-content: space-evenly;
-    margin-top: 10px;
+    gap: 10px;
 }
 
 .grid-anime-button {
     display: flex;
     align-items: center;
-    background-color: var(--gridButton);
-    border: 2px solid black;
-    border-radius: 3px;
-    padding: 7px 7px;
+    background-color: var(--buttonBG);
+    border-radius: 7px;
+    border: none;
+    padding: 18px 7px;
     height: 32px;
-    &:hover {
-        border: 2px solid white;
-    }
 }
 
 .grid-anime-button-hover {
     display: flex;
     align-items: center;
+    transition: filter 0.2s;
     &:hover {
-        cursor: pointer;
-        filter: invert(1);
+        cursor: default;
+        filter: brightness(0);
+    }
+}
+
+.grid-anime-button-hover2 {
+    display: flex;
+    align-items: center;
+    &:hover {
+        cursor: default;
+        filter: brightness(130%);
     }
 }
 
@@ -61,28 +82,28 @@
     height: 22px;
     width: auto;
     margin-right: 5px;
+    color: var(--textColor);
 }
 
 .grid-anime-button-text {
-    font-family: "Honoka Shin Antique-Kaku", sans-serif;
+    font-family: "Tsunagi Gothic Black", sans-serif;
     font-size: 22px;
-    color: black;
+    color: var(--textColor);
 }
 
 .grid-anime-img-container {
     position: relative;
     display: flex;
-    flex-direction: column;
     width: 100%;
+    height: 320px;
     overflow: hidden;
-    border: 2px solid var(--titlebarBG);
 }
 
 .grid-anime-text-container {
     display: flex;
     position: absolute;
     bottom: 0px;
-    background-color: var(--sortbarSearchBG);
+    background-color: var(--textColor);
     justify-content: center;
     transform-origin: bottom;
     width: 100%;
@@ -91,9 +112,9 @@
 }
 
 .grid-anime-text {
-    font-family: "Honoka Shin Antique-Kaku", sans-serif;
+    font-family: "Tsunagi Gothic Black", sans-serif;
     font-size: 20px;
-    color: var(--gridButton);
+    color: var(--textColor);
 }
 
 .hide-grid-anime-text {
@@ -101,12 +122,81 @@
     transform: scaleY(0);
 }
 
+.grid-anime-title-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 220px;
+}
+
+.grid-anime-title {
+    color: var(--textColor);
+    font-family: "Tsunagi Gothic Black";
+    font-size: 18px;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+.grid-anime-episode-count {
+    color: var(--textColor);
+    font-family: "Honoka Shin Antique-Kaku";
+    font-size: 13px;
+    word-break: break-word;
+}
+
+.grid-anime-genre-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 220px;
+    gap: 10px;
+}
+
+.grid-anime-genre-button {
+    display: flex;
+    padding: 3px 7px;
+    justify-content: center;
+    border: none;
+    align-items: center;
+    border-radius: 4px;
+    background-color: var(--buttonBG);
+    color: var(--textColor);
+    font-family: "Tsunagi Gothic Black";
+    font-size: 14px;
+}
+
 @media screen and (max-width: 500px) {
     .grid-anime {
         margin-right: 10px;
     }
 
-    .grid-anime-img {
+    .grid-anime-img-container {
         height: 250px;
+    }
+
+    .grid-anime-title-container {
+        width: 180px;
+    }
+
+    .grid-anime-genre-container {
+        width: 180px;
+    }
+
+    .grid-anime-button-img {
+        height: 15px;
+    }
+
+    .grid-anime-button-container {
+        gap: 5px;
+    }
+
+    .grid-anime-button {
+        padding: 9px 5px;
+    }
+
+    .grid-anime-button-text {
+        font-size: 15px;
+    }
+
+    .grid-anime-genre-button {
+        font-size: 12px;
     }
 }

@@ -2,14 +2,15 @@ import React, {useEffect, useState, useRef} from "react"
 import {useLayoutSelector} from "../store"
 import {useNavigate} from "react-router-dom"
 import WatchIcon from "../assets/svg/watch.svg"
-import BookmarkIcon from "../assets/svg/bookmark.svg"
-import UnbookmarkIcon from "../assets/svg/unbookmark.svg"
+import BookmarkIcon from "../assets/svg/bookmark-filled.svg"
 import "./styles/gridanime.less"
 
 interface Props {
     img: string 
     title: string
     id: string
+    genres: string[]
+    episodes: number
     noButtons?: boolean
     refresh?: () => void
 }
@@ -112,26 +113,33 @@ const GridAnime: React.FunctionComponent<Props> = (props) => {
             <div className="grid-anime-container">
                 <div className="grid-anime-img-container" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} onClick={onClick} onAuxClick={onClick} onMouseDown={mouseDown} onMouseUp={mouseUp} onMouseMove={mouseMove}>
                     <img className="grid-anime-img" src={props.img} ref={imageRef} onMouseMove={(event) => imageAnimation(event)} onMouseLeave={() => cancelImageAnimation()}/>
-                    <div className={`grid-anime-text-container ${!hover ? "hide-grid-anime-text" : ""}`}>
-                        <span className="grid-anime-text" style={{fontSize: getFontSize()}}>{props.title}</span>
-                    </div>
                 </div>
-                {!mobile && !props.noButtons ? <div className="grid-anime-button-container">
-                    <button className="grid-anime-button" onClick={() => navigate(`/anime/${props.id}`)} onAuxClick={onClick}>
-                        <span className="grid-anime-button-hover">
-                            <WatchIcon className="grid-anime-button-img"/>
-                            <span className="grid-anime-button-text">Watch</span>
-                        </span>
-                    </button>
-                    <button className="grid-anime-button" onClick={save}>
-                        <span className="grid-anime-button-hover">
-                            {saved ?
-                            <UnbookmarkIcon className="grid-anime-button-img"/> :
-                            <BookmarkIcon className="grid-anime-button-img"/>}
-                            <span className="grid-anime-button-text">{saved ? "Unsave" : "Save"}</span>
-                        </span>
-                    </button>
-                </div> : null}
+                <div className="grid-anime-info-container">
+                    <div className="grid-anime-title-container">
+                        <span className="grid-anime-title">{props.title}</span>
+                    </div>
+                    <span className="grid-anime-episode-count">{props.episodes} episodes</span>
+                    <div className="grid-anime-genre-container">
+                        {props.genres.map((genre) => (<button className="grid-anime-genre-button">{genre}</button>))}
+                    </div>
+                    
+                    {!props.noButtons ? <div className="grid-anime-button-container">
+                        <button className="grid-anime-button" onClick={() => navigate(`/anime/${props.id}`)} onAuxClick={onClick}
+                            style={{backgroundColor: "var(--buttonBG2)"}}>
+                            <span className="grid-anime-button-hover">
+                                <WatchIcon className="grid-anime-button-img" style={{color: "var(--buttonText)"}}/>
+                                <span className="grid-anime-button-text" style={{color: "var(--buttonText)"}}>Watch</span>
+                            </span>
+                        </button>
+                        <button className="grid-anime-button" onClick={save}>
+                            <span className="grid-anime-button-hover2">
+                                <BookmarkIcon className="grid-anime-button-img" style={{color: saved ? "var(--savedColor" : "var(--textColor)"}}/>
+                                <span className="grid-anime-button-text" style={{color: saved ? "var(--savedColor" : "var(--textColor)"}}>
+                                    {saved ? "Saved" : "Save"}</span>
+                            </span>
+                        </button>
+                    </div> : null}
+                </div>
             </div>
         </div>
     )

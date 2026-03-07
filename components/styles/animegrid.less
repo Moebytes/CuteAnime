@@ -38,7 +38,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--gridButton);
+    background-color: var(--buttonBG);
     border: 2px solid black;
     border-radius: 3px;
     padding: 3px 3px;
@@ -67,5 +67,11 @@
 .anime-grid-page-button-text {
     font-family: "Honoka Shin Antique-Kaku", sans-serif;
     font-size: 32px;
-    color: black;
+    color: var(--textColor);
+}
+
+@media screen and (max-width: 500px) {
+    .anime-grid-row {
+        margin: 10px 5px;
+    }
 }

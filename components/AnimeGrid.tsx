@@ -34,7 +34,8 @@ const AnimeGrid: React.FunctionComponent = () => {
                 const k = i+j
                 if (!animeList[k]) break
                 gridImages.push(<GridAnime img={animeList[k].cover} title={animeList[k].title} 
-                    id={animeList[k].id} key={k} refresh={updateAnimeList}/>)
+                    id={animeList[k].id} key={k} refresh={updateAnimeList} 
+                    episodes={animeList[k].episodeCount} genres={animeList[k].genres}/>)
             }
             jsx.push(
                 <div className="anime-grid-row">

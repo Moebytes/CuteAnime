@@ -40,7 +40,8 @@ const RelatedAnime: React.FunctionComponent<Props> = (props) => {
         for (let i = 0; i < related.length; i++) {
             const anime = database.find((a) => a.id === related[i])
             if (!anime) continue
-            jsx.push(<GridAnime id={anime.id} img={anime.cover} title={anime.title} noButtons={true}/>)
+            jsx.push(<GridAnime id={anime.id} img={anime.cover} title={anime.title} noButtons={true}
+            episodes={anime.episodeCount} genres={anime.genres}/>)
         }
         return jsx
     }
